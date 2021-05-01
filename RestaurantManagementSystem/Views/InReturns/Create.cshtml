@@ -1,0 +1,98 @@
+﻿@model RestaurantManagementSystem.ViewModels.InvReturnsDto
+@using System.Web.Script.Serialization;
+@{
+    ViewBag.Title = "Create";
+}
+
+@{ string data = new JavaScriptSerializer().Serialize(Model);}
+@section Scripts{
+
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    <script src="~/Scripts/InvReturnViewModel.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function () {
+            $('.datetimepicker').datepicker();
+        });
+        var invReturnViewModel = new InvReturnsDto(@Html.Raw(data));
+        ko.applyBindings(invReturnViewModel);
+        console.log(invReturnViewModel);
+      
+    </script>
+}
+    <div class="col-md-12">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h2 class="box-title"><b>Inventory Returns</b><br /> </h2>
+                <hr />
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="hidden" data-bind="value: Id" class="form-control small-input" id="Id" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4">Return #</label>
+
+                            <div class="col-md-8">
+                                <input data-bind="value: ReturnNo" class="form-control small-input" />
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4">Return Date</label>
+                            <div class="col-md-8">
+                                <input data-bind="value: ReturnDateTime" class="form-control small-input datetimepicker" />
+                            </div>
+                        </div>
+                         
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4">Return By</label>
+                            <div class="col-md-8">
+
+                                <select class="form-control small-input" data-bind="options:listUser, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Email; },
+                                    value: ReturnBy,valueUpdate: 'change'"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-4">Return To</label>
+                            <div class="col-md-8">
+                                <select class="form-control small-input" data-bind="options:listUser, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Email; },
+                                    value: ReturnTo,valueUpdate: 'change'"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label class="control-label col-md-2">Description</label>
+                            <div class="col-md-10">
+                                <textarea data-bind="value: Description" class="form-control"  rows="4" cols="80"></textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+                }
+                @Html.Partial("_listReturnDetail")
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-info" data-bind="click: save">Save</button>
+                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+

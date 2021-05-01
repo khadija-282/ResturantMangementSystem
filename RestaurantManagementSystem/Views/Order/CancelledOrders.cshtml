@@ -1,0 +1,247 @@
+﻿@model IEnumerable<RestaurantManagementSystem.ViewModels.OrderViewModel>
+
+@{
+    ViewBag.Title = "Cancelled Orders";
+    long orderId = 0;
+    if (@Model != null && Model.Any())
+    {
+        orderId = @Model.FirstOrDefault().Id.Value;
+    }
+    else
+    {
+        orderId = 0;
+    }
+}
+<div class="col-md-12">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h2 class="box-title"><b>Cancelled Orders</b></h2>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <table class="table table-striped" id="tblItemsList">
+            <thead>
+                <tr>
+                    <th style="display:none;">Id</th>
+                    <th>Order#</th>
+                    <th>Order Time</th>
+                    <th>Customer</th>
+                    <th>Table</th>
+                    <th>Waiter</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="display:none;">@item.Id</td>
+                        <td>@item.Code</td>
+                        <td>@item.OrderDateTime</td>
+                        <td>
+                            @if (item.CustomerId == 1)
+                            {<span>Dine-In</span> }
+                            else if (item.CustomerId == 2)
+                            { <span>Take Away</span> }
+                            else
+                            { <span>Delivery</span>}
+                        </td>
+                        <td>@item.TableNumber</td>
+                        <td>@item.Waiter</td>
+                        <td>
+                            @if (item.OrderStatus == "New")
+                            {
+                                <span class="label label-info">NEW</span>
+                            }
+                            else if (item.OrderStatus == "Cancelled")
+                            {
+                                <span class="label label-danger">Cancelled</span>
+                            }
+                            else
+                            {
+                                <span class="label label-success">Completed</span>
+                            }
+                        </td>
+                    </tr>
+                }
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+        $("#txtCashPaid").on('input', function (e) {
+            var balance = parseFloat($("#txtCashPaid").val()) - parseFloat($("#txtNetTotal").html());
+            //$("#tdCasehPaid").empty();
+            //$("#tdCasehPaid").append($("#txtCashPaid").val());
+            $("#txtBalance").empty();
+
+            $("#txtBalance").append(balance.toFixed(2));
+        });
+
+        function cancelOrder(orderId) {
+            if (confirm("Are you sure to cancel this order?")) {
+                $.ajax({
+                    url: "/Order/CancelOrder",
+                    data: {Id:orderId},
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.success) {
+                            alert(data.responseText);
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                });
+            }
+        }
+        function getInvoiceData(orderId) {
+            //if (!confirm("This will generate an invoice. Are you sure?")) {
+            //    return false;
+            //}
+            //debugger;
+            $("#txtCashPaid").val(0);
+            $("#txtBalance").empty();
+            $("#txtBalance").append(0);
+            $.ajax({
+                url: "/Order/GetInvoice",
+                data: JSON.stringify({ Id: orderId}),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#txtCustomerName').text(result.CustomerName);
+                    $('#txtOrderNumber').text(result.Code);
+                    //alert(moment(new Date(parseInt(result.OrderDateTime.replace('/Date(', '')))).format('DD-MM-YYYY h:mm:ss a'));
+                    $("#txtOrderDate").text(moment().format('DD/MM/YYYY h:mm a'));
+                    console.log("Grand Total :"+result.GrandTotal);
+                    $('#txtTotal').empty();
+                    $('#txtTotal').append(result.GrandTotal);
+                    $('#txtGST').empty();
+                    $('#txtGST').append(result.GST);
+                    $('#txtDiscount').empty();
+                    $('#txtDiscount').append(result.DiscountValue);
+                    $('#txtNetTotal').empty();
+                    $('#txtNetTotal').append(result.NetTotal);
+
+                    $("#InvoiceBody").empty();
+                    $.each(result.OrderDetail, function (i, item) {
+                        //console.log(result);
+
+                        $("#InvoiceBody").append("<tr>" +
+                            "<td class='itemName'>" +
+                            "    <span> " + result.OrderDetail[i].ItemName + "</span>" +
+                            "</td>" +
+                            "<td class='price'>" +
+                            "    <span> " + result.OrderDetail[i].Price + "</span>" +
+                            "</td>" +
+                            "<td class='quantity'>" +
+                            "   <span>" + result.OrderDetail[i].Quantity + "</span>" +
+                            "</td>" +
+                            "<td class='lineTotal'>" +
+                            "   <span>" + result.OrderDetail[i].LineTotal + "</span>" +
+                            "</td>" +
+                            "</tr>");
+                    });
+                    var rowCount = $('#tblInvoiceItems tr').length;
+                    $('#txtItemCount').empty();
+                    $('#txtItemCount').append(rowCount - 1);
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });
+        }
+    </script>
+}
+<style>
+    body {
+        font-family: arial;
+        font-size: 14px;
+    }
+
+    .liveExample {
+        padding: 1em;
+        background-color: #EEEEDD;
+        border: 1px solid #CCC;
+        max-width: 655px;
+    }
+
+        .liveExample input {
+            font-family: Arial;
+        }
+
+        .liveExample b {
+            font-weight: bold;
+        }
+
+        .liveExample p {
+            margin-top: 0.9em;
+            margin-bottom: 0.9em;
+        }
+
+        .liveExample select[multiple] {
+            width: 100%;
+            height: 8em;
+        }
+
+        .liveExample h2 {
+            margin-top: 0.4em;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .liveExample th {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .liveExample .price {
+            text-align: right;
+            padding-right: 2em;
+        }
+
+        .liveExample .grandTotal {
+            border-top: 1px solid silver;
+            padding-top: 0.5em;
+            font-size: 1.2em;
+        }
+
+            .liveExample .grandTotal SPAN {
+                font-weight: bold;
+            }
+
+        .liveExample table, .liveExample td, .liveExample th {
+            padding: 0.2em;
+            border-width: 0;
+            margin: 0;
+            vertical-align: top;
+        }
+
+            .liveExample td input, .liveExample td select {
+                width: 8em;
+            }
+
+            .liveExample td.quantity input {
+                width: 4em;
+            }
+
+            .liveExample td select {
+                height: 1.8em;
+                white-space: nowrap;
+            }
+
+
+    li {
+        list-style-type: disc;
+        margin-left: 20px;
+    }
+</style>

@@ -1,0 +1,52 @@
+﻿
+
+<div class="col-md-12">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h2 class="box-title"><b>Issue Returns</b><br /> </h2>
+            <hr />
+            <div class="box-tools pull-right">
+
+            </div>
+            <table class="table table-striped" id="tbIssue">
+                <thead>
+                    <tr>
+                        <th>
+                            Issue #
+                        </th>
+                        <th>
+                            Item Name
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            <button class="btn btn-primary btn-xs" data-bind="click: addChildItem">Add</button>
+                        </th>
+                         
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: listIssueDetail">
+                    <tr>
+                        <td class="form-group">
+                            <span data-bind=" text: IssueNo "></span>
+                        </td>
+                        <td class="form-group">
+                            <select required class="form-control small-input" data-bind="options:listItems, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Name; },
+                                    value: InventoryItemId,valueUpdate: 'change' "></select>
+                        </td>
+                        <td class="form-group">
+                            <input required type="number" class="form-control input-sm" data-bind="value: Quantity " />
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-xs" data-bind="click: $parent.deleteChildItem">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

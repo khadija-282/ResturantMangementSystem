@@ -1,0 +1,179 @@
+﻿@model IEnumerable<RestaurantManagementSystem.ViewModels.InvIssueDto>
+
+@{
+    ViewBag.Title = "Index";
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Datatable();
+            DatatableforDeail();
+        });
+        function Datatable() {
+            $("#tbIssue").DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                'responsive': true,
+                "pageLength": 50,
+                "lengthMenu": [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
+                dom: 'Bflrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        className: 'btn',
+                        title: 'Items List',
+                        titleAttr: 'Export Excel',
+                        exportOptions: {
+                            columns: [1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        className: 'btn',
+                        title: 'Items List',
+                        titleAttr: 'Export CSV',
+                        exportOptions: {
+                            columns: [1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        className: 'btn',
+                        title: 'Items List',
+                        titleAttr: 'Export PDF',
+                        orientation: 'landscape',
+                        exportOptions: {
+                            columns: [1, 2, 3]
+                        }
+                    }
+                ]
+
+            });
+        }
+        function DatatableforDeail() {
+            $("#tbIssueDetail").DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                'responsive': true,
+                "pageLength": 50,
+                "lengthMenu": [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
+                dom: 'Bflrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        className: 'btn',
+                        title: 'Items List',
+                        titleAttr: 'Export Excel',
+                        exportOptions: {
+                            columns: [1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: '<i class="fa fa-file-text-o"></i>',
+                        className: 'btn',
+                        title: 'Items List',
+                        titleAttr: 'Export CSV',
+                        exportOptions: {
+                            columns: [1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        className: 'btn',
+                        title: 'Items List',
+                        titleAttr: 'Export PDF',
+                        orientation: 'landscape',
+                        exportOptions: {
+                            columns: [1, 2, 3]
+                        }
+                    }
+                ]
+
+            });
+        }
+    </script>
+
+}
+<div class="col-md-12">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h2 class="box-title"><b>Inventory Issue</b><br /> </h2>
+            <hr />
+            <div class="box-tools pull-right">
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info" })
+            </div>
+            <table id="tbIssue" class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            Issue No
+                        </th>
+                        <th>
+                            Issue Date
+                        </th>
+                        <th>
+                            Issue Place
+                        </th>
+                        <th>
+                            Issue To
+                        </th>
+                        <th>
+                            Issue By
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IssueNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IssueDateString)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IssuePlace)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IssueToEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IssueByEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Detail", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

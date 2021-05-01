@@ -1,0 +1,91 @@
+﻿@model RestaurantManagementSystem.ViewModels.InvReturnsDto
+@using System.Web.Script.Serialization;
+@{
+    ViewBag.Title = "Delete";
+}
+
+@{ string data = new JavaScriptSerializer().Serialize(Model);}
+@section Scripts{
+
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    <script src="~/Scripts/InvReturnViewModel.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        $('.datetimepicker').datepicker();
+    });
+        var invReturnViewModel = new InvReturnsDto(@Html.Raw(data));
+        ko.applyBindings(invReturnViewModel);
+        console.log(invReturnViewModel);
+    </script>
+
+
+}
+<div class="col-md-12">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h2 class="box-title"><b>Inventory Returns</b><br /> </h2>
+            <hr />
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2">Return #</label>
+
+                    <div class="col-md-10">
+                        <span data-bind="text: ReturnNo" class="form-control disabled"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Return Date</label>
+                    <div class="col-md-10">
+                        <span data-bind="text: ReturnDateTime" class="form-control datetimepicker disabled"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Return By</label>
+                    <div class="col-md-10">
+
+                        <select disabled class="form-control" data-bind="options:listUser, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Email; },
+                                    value: ReturnBy,valueUpdate: 'change'"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Return To</label>
+                    <div class="col-md-10">
+                        <select disabled class="form-control" data-bind="options:listUser, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Email; },
+                                    value: ReturnTo,valueUpdate: 'change'"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Description</label>
+                    <div class="col-md-10">
+                        <span data-bind="text: Description" class="form-control disabled"></span>
+                    </div>
+                </div>
+                @Html.Partial("_listReturnDetail")
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-info" data-bind="click: save">Delete</button>
+                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

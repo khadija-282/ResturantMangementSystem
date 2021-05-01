@@ -1,0 +1,84 @@
+﻿@model IEnumerable<RestaurantManagementSystem.Models.RoleViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<section class="content-header">
+    <h1></h1>
+    <ol class="breadcrumb"></ol>
+</section>
+
+   
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Roles</h3>
+               
+            </div>
+
+            <div class="box-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <div class="form-group">
+                                @Html.Label("User Level")
+                                @Html.DropDownList("LevelId", null, htmlAttributes: new { @class = "form-control select", @onchange = "this.form.submit();" })
+                               
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="pull-right">
+                                @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+
+                                <table id="tblMain" class="table table-bordered table-striped">
+
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.DisplayName)
+                                            </th>
+
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.LevelName)
+                                            </th>
+
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DisplayName)
+                                                </td>
+
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.LevelName)
+                                                </td>
+
+                                                <td>
+                                                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "fa fa-edit" }) &nbsp;&nbsp;
+                                                    @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "fa fa-eye" }) &nbsp;&nbsp;
+                                                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "fa fa-remove" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+   

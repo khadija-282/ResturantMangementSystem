@@ -1,0 +1,68 @@
+﻿@model RestaurantManagementSystem.Models.UserLevel
+
+@{
+    ViewBag.Title = "Create";
+}
+<section class="content-header">
+    <h1></h1>
+    <ol class="breadcrumb"></ol>
+</section>
+
+<div class="box box-primary">
+    <div class="box-header">
+        <h3 class="box-title">Create User Level</h3>
+
+    </div>
+
+    <div class="box-body">
+        <div class="form-group col-md-6">
+            @using (Html.BeginForm("Create", "UserLevel", FormMethod.Post, new { @class = "frm-parsley-validate" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+
+                        <label for="LevelName">LevelName</label>
+                        <input type="text" class="form-control" placeholder="Enter Level Name" id="LevelName" name="LevelName" required />
+                        @Html.ValidationMessageFor(model => model.LevelName, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+
+                        <label for="Description">Description</label>
+                        <input type="text" class="form-control" placeholder="Enter Description" id="Description" name="Description" />
+
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="IsActive_YN">Is Active</label>
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsActive_YN)
+                            @Html.ValidationMessageFor(model => model.IsActive_YN, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+
+                    </div>
+                    <div class="form-group col-md-offset-10">
+                        <div>
+                            @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+

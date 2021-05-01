@@ -1,0 +1,413 @@
+﻿@model IEnumerable<RestaurantManagementSystem.ViewModels.OrderViewModel>
+@using RestaurantManagementSystem.Common
+
+@{
+    ViewBag.Title = "Completed Orders";
+    long orderId = 0;
+    if (@Model != null && Model.Any())
+    {
+        orderId = @Model.FirstOrDefault().Id.Value;
+    }
+    else
+    {
+        orderId = 0;
+    }
+}
+<div class="col-md-12">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h2 class="box-title"><b>Completed Orders</b></h2>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <table class="table table-striped" id="tblItemsList">
+            <thead>
+                <tr>
+                    <th>Bill#</th>
+                    <th>Shift</th>
+                    <th>Invoice#</th>
+                    <th>Order Time</th>
+                    <th>Customer</th>
+                    <th>Table</th>
+                    <th>Waiter</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Bill#</th>
+                    <th>Shift</th>
+                    <th>Invoice#</th>
+                    <th>Order Time</th>
+                    <th>Customer</th>
+                    <th>Table</th>
+                    <th>Waiter</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+            <tbody id="tblItemsListBody">
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.BillNumber</td>
+                    <td>@item.Shift</td>
+                    <td>@item.Code</td>
+                    <td>@item.OrderDateTime</td>
+                    <td>
+                        @if (item.CustomerId == 1)
+                        {<span>Dine-In</span> }
+                        else if (item.CustomerId == 2)
+                        { <span>Take Away</span> }
+                        else
+                        { <span>Delivery</span>}
+                    </td>
+                    <td>@item.TableNumber</td>
+                    <td>@item.Waiter</td>
+                    <td>
+                        @if (item.OrderStatus == "NEW")
+                        {
+                            <span class="label label-info">NEW</span>
+                        }
+                        else if (item.OrderStatus == "PENDING")
+                        {
+                            <span class="label label-warning">PENDING</span>
+                        }
+                        else
+                        {
+                            <span class="label label-success">COMPLETED</span>
+                        }
+                    </td>
+                    <td>
+                        <span class="label label-info">
+                            <a href="#" onclick="getInvoiceData('@item.Id')">Invoice</a>
+                        </span> &nbsp;
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="col-md-6 pull-right">
+    <input type="checkbox" id="chkIsDeleted" name="chkIsDeleted" hidden="hidden" />
+    <div class="col-md-12 pull-right">
+        <div class="box box-default">
+            <div class="box"><button type="button" class="btn btn-info pull-right" onclick="printDiv()">Print</button></div>
+            <br />
+            <div class="box-header with-border" id="divInvoice" style="font-family:Verdana;font-size:16px;">
+                <input type="hidden" id="txtInvoiceOrderId" value="0" />
+                <div class="box col-md-6" style="text-align:center;height:130px;background-color:lightgray"><img src="~/Images/Invoice_logo.jpg" /></div>
+                <div style="text-align:center">
+                    <small>@CSNCommon.PNTN</small>
+                    <br />
+                    <small>Ph# @CSNCommon.Phone1 | @CSNCommon.Phone2</small>
+                </div>
+                <hr />                
+                <div>
+                    <table class="table table-condensed">
+                        <tr><th>Date</th><td id="txtOrderDate"></td><th>Inv#</th><td id="txtOrderNumber"></td><th>Pax</th><td id="tdPax"></td></tr>
+                        <tr><th>Customer</th><td id="txtCustomerName"></td><th>Table</th><td id="txtTableNumber"></td><th>Bill No.</th><td id="txtBillNumber"></td></tr>
+                    </table>
+                </div>
+                <table class="table table-condensed" id="tblInvoiceItems">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Item</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="InvoiceBody"></tbody>
+                </table>
+                <table class='table table-condensed grandTotal pull-right' id="tblSummary">
+                    <tr>
+                        <th class="text-right">Items:</th>
+                        <td id="txtItemCount" class="text-right"> <small>0</small></td>
+                        <td></td>
+                        <th class="text-right">Total:</th>
+                        <td id="txtTotal" class="text-right"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-right"></th>
+                        <td class="text-right" id="tdCasehPaid"><input type="number" id="txtCashPaid" style="width:50px;display:none;" class="text-right" /> </td>
+                        <td></td>
+                        <th class="text-right">GST: </th>
+                        <td id="txtGST" class="text-right"> </td>
+                    </tr>
+                    <tr>
+                        <th class="text-right"></th>
+                        <td id="txtBalance" class="text-right"></td>
+                        <td id="tdDiscount" class="text-right"><input type="number" id="txtDiscount_OLD" min="0" style="width:50px;display:none;" class="text-right" /> </td>
+                        <th class="text-right">Discount: </th>
+                        <td id="txtDiscount" class="text-right"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-right"></th>
+                        <td class="text-right" id="tdPaymentType"></td>
+                        <td id="tdServiceAmount" class="text-right"></td>
+                        <th class="text-right">Service:</th>
+                        <td id="tdServiceCharges" class="text-right"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-right"></th>
+                        <td class="text-right"> </td>
+                        <td></td>
+                        <th class="text-right">Net :</th>
+                        <td id="txtNetTotal" class="text-right"></td>
+                    </tr>
+                </table>
+                <br />
+                <div class="text-center"><b>DUPLICATE INVOICE</b></div>
+                ______________________________________________________
+                <div class='footer-copyright text-center py-3'> <small>Powered By: Softanize |http://softanize.com/ | 0306-4081958</small></div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-info pull-right" onclick="printDiv()">Print</button>
+    </div>
+</div>
+@section scripts {
+    <script src="~/Scripts/jQuery.print.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tblItemsList thead tr').clone(true).appendTo('#tblItemsList thead');
+            $('#tblItemsList thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="tblfilter" placeholder="'+ title +'" />');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+            var table = $('#tblItemsList').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                responsive: true,
+                pageLength: 10,
+                lengthMenu: [[10, 50, 100, 200], [10, 50, 100, 200]],
+            });
+        });
+        $("#txtCashPaid").on('input', function (e) {
+            var balance = parseFloat($("#txtCashPaid").val()) - parseFloat($("#txtNetTotal").html());
+            //$("#tdCasehPaid").empty();
+            //$("#tdCasehPaid").append($("#txtCashPaid").val());
+            $("#txtBalance").empty();
+            $("#txtBalance").append(balance.toFixed(2));
+        });
+
+        function printDiv() {
+            //var divToPrint = document.getElementById('divInvoice');
+            //var newWin = window.open('', 'Print-Window');
+            //newWin.document.open();
+            //newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+            //newWin.document.close();
+            //setTimeout(function () { newWin.close(); }, 10);
+            $("#divInvoice").print();
+
+        }
+        function cancelOrder(orderId) {
+            if (confirm("Are you sure to cancel this order?")) {
+                $.ajax({
+                    url: "/Order/CancelOrder",
+                    data: JSON.stringify({ orderId: orderId }),
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.success) {
+                            alert(data.responseText);
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                });
+            }
+        }
+        function getInvoiceData(orderId) {
+            //if (!confirm("This will generate an invoice. Are you sure?")) {
+            //    return false;
+            //}
+            //debugger;
+            $("#txtCashPaid").val(0);
+            $("#txtBalance").empty();
+            //$("#txtBalance").append(0);
+            $.ajax({
+                url: "/Order/GetInvoice",
+                data: JSON.stringify({ Id: orderId }),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    //$('#txtCustomerName').text(result.CustomerName);
+                    //$('#txtOrderNumber').text(result.Code);
+                    //$("#txtOrderDate").text(moment().format('DD/MM/YYYY'));
+                    $('#txtCustomerName').empty();
+                    $('#txtCustomerName').append(result.CustomerName);
+                    $('#txtOrderNumber').empty();
+                    $('#txtOrderNumber').append(result.Code);
+                    $("#txtOrderDate").empty();
+                    $("#txtOrderDate").append(moment().format('DD/MM/YYYY'));
+                    $("#txtTableNumber").empty();
+                    $("#txtTableNumber").append(result.TableNumber);
+                    $("#txtBillNumber").empty();
+                    $("#txtBillNumber").append(result.BillNumber);
+                    $("#tdPax").empty();
+                    $("#tdPax").append(result.Pax);
+                    $('#txtTotal').empty();
+                    $('#txtTotal').append(result.GrandTotal);
+                    $('#txtGST').empty();
+                    $('#txtGST').append(Math.ceil(parseFloat(result.GST)));
+                    //$('#txtDiscount').empty();
+                    //$('#txtDiscount').append(result.DiscountValue);
+
+                    var totalBeforeDiscount = (parseFloat($("#txtTotal").text()) + parseFloat($("#txtGST").text()));
+
+                    //BEFORE BISTRO
+                    //var discountAmount = ((parseFloat(result.DiscountValue) / 100.0) * parseFloat(parseFloat(totalBeforeDiscount));
+
+                    var discountAmount = ((parseFloat(result.DiscountValue) / 100.0) * parseFloat($("#txtTotal").text()));
+                    $("#txtDiscount").empty();
+                    $("#txtDiscount").append(Math.ceil(discountAmount.toFixed(2)));
+
+                    //BEFORE BISTRO
+                    //var serviceAmount = ((parseFloat(result.ServiceCharges) / 100.0) * parseFloat(parseFloat(totalBeforeDiscount));
+                    var serviceAmount = ((Math.ceil(parseFloat(result.ServiceCharges)) / 100.0) * parseFloat($("#txtTotal").text()));
+
+                    $('#txtNetTotal').empty();
+                    $('#txtNetTotal').append(Math.ceil(parseFloat(result.NetTotal)));
+                    $('#tdServiceCharges').empty();
+                    $('#tdServiceCharges').append(Math.ceil(serviceAmount.toFixed(2)));
+                    $("#InvoiceBody").empty();
+                    $.each(result.OrderDetail, function (i, item) {
+                        //console.log(result);
+
+                        $("#InvoiceBody").append("<tr>" +
+                            "<td class='text-left'>" +
+                            "    <span> " + result.OrderDetail[i].ItemName + "</span>" +
+                            "</td>" +
+                            "<td class='text-center'>" +
+                            "    <span> " + result.OrderDetail[i].Price + "</span>" +
+                            "</td>" +
+                            "<td class='text-center'>" +
+                            "   <span>" + result.OrderDetail[i].Quantity + "</span>" +
+                            "</td>" +
+                            "<td class='text-center'>" +
+                            "   <span>" + result.OrderDetail[i].LineTotal + "</span>" +
+                            "</td>" +
+                            "</tr>");
+                    });
+                    var rowCount = $('#tblInvoiceItems tr').length;
+                    $('#txtItemCount').empty();
+                    $('#txtItemCount').append(rowCount - 1);
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });
+        }
+    </script>
+}
+
+<style>
+    img {
+        -webkit-print-color-adjust: exact;
+    }
+    .tblfilter{
+        width:50px;
+    }
+    body {
+        font-family: arial;
+        font-size: 14px;
+    }
+    .logo {
+        background: url('../../Images/logo.jpg') 50% 50% no-repeat rgb(249,249,249);
+    }
+    .liveExample {
+        padding: 1em;
+        background-color: #EEEEDD;
+        border: 1px solid #CCC;
+        max-width: 655px;
+    }
+
+        .liveExample input {
+            font-family: Arial;
+        }
+
+        .liveExample b {
+            font-weight: bold;
+        }
+
+        .liveExample p {
+            margin-top: 0.9em;
+            margin-bottom: 0.9em;
+        }
+
+        .liveExample select[multiple] {
+            width: 100%;
+            height: 8em;
+        }
+
+        .liveExample h2 {
+            margin-top: 0.4em;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .liveExample th {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .liveExample .price {
+            text-align: right;
+            padding-right: 2em;
+        }
+
+        .liveExample .grandTotal {
+            border-top: 1px solid silver;
+            padding-top: 0.5em;
+            font-size: 1.2em;
+        }
+
+            .liveExample .grandTotal SPAN {
+                font-weight: bold;
+            }
+
+        .liveExample table, .liveExample td, .liveExample th {
+            padding: 0.2em;
+            border-width: 0;
+            margin: 0;
+            vertical-align: top;
+        }
+
+            .liveExample td input, .liveExample td select {
+                width: 8em;
+            }
+
+            .liveExample td.quantity input {
+                width: 4em;
+            }
+
+            .liveExample td select {
+                height: 1.8em;
+                white-space: nowrap;
+            }
+
+
+    li {
+        list-style-type: disc;
+        margin-left: 20px;
+    }
+</style>

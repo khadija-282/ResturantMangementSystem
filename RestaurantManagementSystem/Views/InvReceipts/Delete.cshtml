@@ -1,0 +1,97 @@
+﻿@model RestaurantManagementSystem.ViewModels.InvReceiptDto
+@using System.Web.Script.Serialization;
+
+@{
+    ViewBag.Title = "Create";
+}
+@{ string data = new JavaScriptSerializer().Serialize(Model);}
+@section Scripts{
+
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    <script src="~/Scripts/InvRecieptViewModel.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function () {
+             $('.datetimepicker').datepicker();
+        });
+        var invReceiptDto = new InvReceiptDto(@Html.Raw(data));
+        ko.applyBindings(invReceiptDto);
+        console.log(invReceiptDto);
+    </script>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col-md-12">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h2 class="box-title"><b>Inventory Receipt</b><br /> </h2>
+                <hr />
+                <div class="box-tools pull-right">
+                </div>
+                <div class="form-horizontal">
+                    <h4></h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-4">Receipt #</label>
+                        <div class="col-md-8">
+                            <span data-bind="text: ReceiptNo " class="form-control small-input"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-4">Receipt Date </label>
+                        <div class="col-md-8">
+                            <span data-bind="text: ReceiptDate " class="form-control small-input "></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-4">Received By</label>
+                        <div class="col-md-8">
+                            <select disabled class="form-control small-input" data-bind="options:listUser, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Email; },
+                                    value: ReceivedById,valueUpdate: 'change'"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-4">Issue By</label>
+                        <div class="col-md-8">
+                            <select disabled class="form-control small-input" data-bind="options:listVendor, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Name; },
+                                    value: VendorId,valueUpdate: 'change' "></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-4">Received Place</label>
+                        <div class="col-md-8">
+                            <select disabled class="form-control small-input" data-bind="options:listReceivedPlace, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Name; },
+                                    value: ReceivedPlaceId,valueUpdate: 'change'"></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-2">Description</label>
+                        <div class="col-md-10">
+                            <textarea disabled data-bind="value: Description " class="form-control" rows="4" cols="50"></textarea>
+                        </div>
+                    </div>
+                    @Html.Partial("_listDetail")
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-info" data-bind="click: save">Delete</button>
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

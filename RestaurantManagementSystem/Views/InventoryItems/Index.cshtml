@@ -1,0 +1,60 @@
+﻿@model IEnumerable<RestaurantManagementSystem.Models.InventoryItem>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-responsive table-striped">
+        <tr>
+            <th>Code </th>
+            <th>Name</th>
+            <th>Packaging Unit</th>
+            <th>Recipe Unit</th>
+            <th>Recipe Unit/pkg</th>
+            <th>Sort Order</th>
+            <th>Refill Balance</th>
+            <th>Total Packages</th>
+            <th>Purchase Price</th>
+            <th>Sell Price</th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackagingUnit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecipeUnit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReciptUnitPerPackage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SortOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReplenishLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPackages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackagePuchasePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackageSellingPrice)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+    
+    </table>

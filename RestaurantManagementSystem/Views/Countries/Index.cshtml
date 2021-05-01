@@ -1,0 +1,79 @@
+﻿@model IEnumerable<RestaurantManagementSystem.Models.Country>
+
+@{
+    ViewBag.Title = "Countries List";
+}
+
+<section class="content-header">
+    <h1>
+        Countries
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Countries</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Countries Setup</h3> @Html.ActionLink("Add Country", "Create", null, new { @class = "btn btn-primary  pull-right" })
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @("Active")
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @if (String.Equals(item.IsActive_YN, true))
+                                {
+                                    <span class="badge bg-green">&nbsp; YES &nbsp;</span> 
+                                }
+                                else
+                                {
+                                     <span class="badge bg-gray">&nbsp; NO &nbsp;</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink(" ", "Edit", new { id = item.Id },new {@class="fa fa-edit" }) &nbsp; &nbsp;
+                                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "fa fa-eye" }) &nbsp; &nbsp;
+                                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "fa fa-remove" })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+            <!-- /.box -->
+            <!-- Form Element sizes -->
+            <!-- /.box -->
+            <!-- /.box -->
+            <!-- Input addon -->
+            <!-- /.box -->
+
+        </div>
+        <!--/.col (left) -->
+        <!-- right column -->
+        <!--/.col (right) -->
+    </div>
+    <!-- /.row -->
+</section>

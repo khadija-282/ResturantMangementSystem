@@ -1,0 +1,72 @@
+﻿@model IEnumerable<RestaurantManagementSystem.Models.Item>
+
+@{
+    ViewBag.Title = "Items List";
+}
+
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Items</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <!-- general form elements -->
+        <div class="box box-primary table-responsive">
+            <div class="box-header with-border">
+                <h3 class="box-title">Items List</h3> @Html.ActionLink("Add Item", "Create", null, new { @class = "btn btn-primary  pull-right" })
+                <br /><br /><a href="#" id="btnAdvSearch" class="pull-right">Advanced Search</a>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <table class="table display nowrap" style="width:98% !important;" id="tblItems" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="display:none">Id</th>
+                        <th>S.No.</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Deal Item?</th>
+                        <th style="display:none">Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th style="display:none">Id</th>
+                        <th>S.No.</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Deal Item?</th>
+                        <th style="display:none">Actions</th>
+                    </tr>
+                </tfoot>
+                <tbody id="tblItemsBody"></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+    @section scripts {
+        <script src="~/Scripts/Items/index.js"></script>
+    }
+    <style>
+        tfoot {
+            display: table-header-group;
+        }
+
+        .dt-buttons {
+            padding: 15px;
+        }
+
+        .dataTables_filter {
+            padding-right: 15px;
+        }
+    </style>

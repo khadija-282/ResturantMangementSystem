@@ -1,0 +1,91 @@
+﻿@model RestaurantManagementSystem.Models.RolePermissionViewModel
+@{
+
+    ViewBag.Title = "Index";
+
+}
+<section class="content-header">
+    <h1></h1>
+    <ol class="breadcrumb"></ol>
+</section>
+<div class="box box-primary">
+    <div class="box-header">
+        <h3 class="box-title">Role Permissions</h3>
+
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+
+        @using (Html.BeginForm())
+        {
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.Label("User Level", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6 ">
+
+                        @if (ViewBag.Level != null)
+                        {
+                            @Html.DropDownListFor(m => m.LevelId, new SelectList(ViewBag.Level, "LevelId", "LevelName", 1), "--select UserLevel--", htmlAttributes: new { @id = "Level", @class= "form-control" })
+
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Roles", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        <select data-val="true" id="role" name="RoleId" onchange="showMenu(this.value);" class="form-control"></select>
+                        @Html.Hidden("hfRoleID", "0")
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <p class="pull-right">
+
+
+                            <button type="button" class="btn btn-success btn-sm" onclick="treeview_save();"><i class="glyphicon glyphicon-floppy-disk"></i> save</button>
+
+
+                            @Html.Hidden("hfSelectedNodeId")
+                            @Html.Hidden("hfSelectedNodeText")
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+
+                        <p class="pull-right input-group">
+
+                            <input type="text" value="" class="form-control" id="demo_q" placeholder="Search..." />
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id='treeview'></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Treeview CSS -->
+    <link rel="stylesheet" href="http://static.jstree.com/3.0.0-beta5/assets/bootstrap/css/bootstrap.css" />
+    <link href="~/Content/jsTree/docs.css" rel="stylesheet" />
+    <link href="~/Content/jsTree/themes/default/style.min.css" rel="stylesheet" />
+    <!-- Treeview -->
+    <script src="@Url.Content("~/Scripts/jsTree/jstree.min.js")" type="text/javascript"></script>
+    <script src="~/Scripts/RolePermissions/showTreeView.js"></script>
+
+}
+
+

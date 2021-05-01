@@ -1,0 +1,229 @@
+﻿@model IEnumerable<RestaurantManagementSystem.ViewModels.DatewiseSalesViewModel>
+@{
+    ViewBag.Title = "Sales By Date";
+}
+
+<div class="col-md-12">
+    <div class="box box-info">
+
+        <div class="box box-default">
+            @using (Html.BeginForm("SalesByDate", "Reports", FormMethod.Get))
+            {
+            <div class="box-header with-border">
+                <h2 class="box-title"><b>Datewise Sales</b></h2>
+                <hr />
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("FromDate", "From Date", htmlAttributes: new { @class = "control-label col-md-4 date" })
+                    <div class="col-md-8">
+                        @Html.Editor("FromDate", new { htmlAttributes = new { text = DateTime.Now.ToString(), @class = "form-control datetimepicker" } })
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("ToDate", "To Date", htmlAttributes: new { @class = "control-label col-md-4 date" })
+                    <div class="col-md-8">
+                        @Html.Editor("ToDate", new { htmlAttributes = new { text = DateTime.Now.ToString(), @class = "form-control datetimepicker" } })
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Shift", "Shift", htmlAttributes: new { @class = "control-label col-md-4 date" })
+                    <div class="col-md-8">
+                        @Html.DropDownList("Shift", new List<SelectListItem>
+                        {
+                            new SelectListItem{ Text="All", Value = "All" },
+                            new SelectListItem{ Text="A", Value = "A" },
+                            new SelectListItem{ Text="B", Value = "B" },
+                        })
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("cancelledOrders", "Include Cancelled Orders?", htmlAttributes: new { @class = "control-label col-md-4 date" })
+                    <div class="col-md-8">
+                        @Html.CheckBox("cancelledOrders",false,new { @checked="checked" })
+                        
+                    </div>
+                </div>
+                <div class="form-group col-md-12 pull-right">
+                    <input type="submit" value="Submit" class="btn btn-primary pull-right" />
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Sales Detail</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="table-responsive">
+                    @*<a href="#" id="btnAdvSearch" class="pull-right">Advanced Search</a>*@
+                <table class="table no-margin" id="tblSalesByDate">
+                    <thead>
+                        <tr>
+                            <th>Shift</th>
+                            <th>Order#</th>
+                            <th>Bill#</th>
+                            <th>Invoice#</th>
+                            <th>Date</th>
+                            <th>Pax</th>
+                            <th>Amount</th>
+                            <th>GST</th>
+                            <th>SC</th>
+                            <th>Discount</th>
+                            <th>Received</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Shift</th>
+                        <th>Order#</th>
+                        <th>Bill#</th>
+                        <th>Invoice#</th>
+                        <th>Date</th>
+                        <th>Pax</th>
+                        <th>Amount</th>
+                        <th>GST</th>
+                        <th>SC</th>
+                        <th>Discount</th>
+                        <th>Received</th>
+                        <th>Location</th>
+                    </tr>
+                    </tfoot>
+                    <tbody id="tblSalesByDateBody">
+                        @foreach (var invoice in Model)
+                        {
+                        <tr>
+                            <td>@invoice.Shift</td>
+                            <td>@invoice.Code</td>
+                            <td>@invoice.BillNumber</td>
+                            <td>@invoice.InvoiceNumber</td>
+                            <td>@invoice.InvoiceDate</td>
+                            <td>@invoice.Pax</td>
+                            <td>@invoice.Amount</td>
+                            <td>@invoice.GST</td>
+                            <td>@invoice.SC</td>
+                            <td>@invoice.Discount</td>
+                            <td>@invoice.Received</td>
+                            <td>@invoice.Location</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.box-body -->
+        @*<div class="box-footer clearfix">
+            <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
+            <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+        </div>*@
+        <!-- /.box-footer -->
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datetimepicker').datepicker();
+            $('#tblSalesByDate tfoot').toggle();
+            // Setup - add a text input to each footer cell
+            $('#tblSalesByDate tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" id="filter_' + title + '"class="input-class" style="width:100px"/>');
+            });
+                            
+            var table = $("#tblSalesByDate").DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                'responsive': true,
+                "pageLength": 50,
+                "lengthMenu": [[50, 100, 200], [50, 100, 200]],
+                // scrollY: 400,
+                //scroller: {
+                //    loadingIndicator: true
+                //},
+                dom: 'Bflrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn',
+                        title: '\n Datewise Sales Detail \n ',
+                        titleAttr: 'Export Excel',
+                        orientation: 'portrait',
+                        exportOptions: {
+                            columns: [0,1, 2, 3, 4, 5,6,7,8,9,10,11]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        className: 'btn',
+                        title: '\n Datewise Sales Detail \n ',
+                        customize: function (doc) {
+                            doc.styles.title = {
+                                color: 'black',
+                                background: 'white',
+                                fontSize: '16',
+                                alignment: 'left'
+                            }
+                        }, 
+                        titleAttr: 'Export PDF',
+                        orientation: 'portrait',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11]                        }
+                    }
+                ]
+
+            });
+
+            $('#btnAdvSearch').click(function () {
+                $('#tblSalesByDate tfoot').toggle();
+                $('#btnAdvSearch').text(function (_, txt) {
+                    var ret = '';
+                    if (txt == 'Advanced Search') {
+                        ret = 'Basic Search';
+                        $("[id^='filter_']").val("").change();
+                    } else {
+                        ret = 'Advanced Search';
+                        $("[id^='filter_']").val("").change();
+                    }
+                    return ret;
+                });
+                return false;
+            });
+
+            // Apply the search
+            table.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
+            });
+
+            $("#filter_Actions").hide();
+            $("#filter_Ser").hide();
+
+        });
+        $('.datetimepicker').on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        });
+    </script>
+}

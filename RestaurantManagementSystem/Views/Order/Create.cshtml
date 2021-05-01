@@ -1,0 +1,437 @@
+﻿@model RestaurantManagementSystem.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "Create";
+    
+}
+<div class="col-md-12">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h2 class="box-title"><b>Order</b><br /> <sub id="OrderNumber" data-bind="value: Code">@Model.Code </sub> </h2>
+            <hr />
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+            @Html.HiddenFor(model => model.Id, new { data_bind = "value:Id" })
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.OrderDateTime, "Date", htmlAttributes: new { @class = "control-label col-md-4 date" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { text = DateTime.Now.ToString(), @class = "form-control datetimepicker small-input", data_bind = "value:OrderDateTime", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.OrderDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.CustomerId, "Customer", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.CustomerId, new SelectList(ViewBag.Customers, "Value", "Text", 1), "-- Select Customer --", htmlAttributes: new { @class = "form-control small-input", data_bind = "value:CustomerId" })
+                    @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-4" style="display:none;">
+                @Html.LabelFor(model => model.CustomerName, "Customer Name", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control small-input", data_bind = "value:CustomerName" } })
+                    @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-4" style="display:none;">
+                @Html.LabelFor(model => model.StatusId, "Status", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.StatusId, new SelectList(ViewBag.Status, "Value", "Text", 1), "-- Order Status --", htmlAttributes: new { @class = "form-control small-input", data_bind = "value:StatusId" })
+                    @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-4" style="display:none;">
+                @Html.LabelFor(model => model.WaiterId, "Waiter", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.WaiterId, new SelectList(ViewBag.Waiters, "Value", "Text", 1), "-- Select Waiter --", htmlAttributes: new { @class = "form-control small-input", data_bind = "value:WaiterId" })
+                    @Html.ValidationMessageFor(model => model.WaiterId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.TableNumber, "Table No.", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.TableNumber, new { htmlAttributes = new { @class = "form-control small-input", data_bind = "value:TableNumber" } })
+                    @Html.ValidationMessageFor(model => model.TableNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Location, "Location", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.Location, new SelectList(ViewBag.Locations, "Text", "Text", 1), "-- Select Location --", htmlAttributes: new { @class = "form-control small-input", data_bind = "value:Location" })
+                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Pax, "Pax", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Pax, new { htmlAttributes = new { @class = "form-control small-input", data_bind = "value:Pax" } })
+                    @Html.ValidationMessageFor(model => model.Pax, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.BillNumber, "Bill No.", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control small-input", data_bind = "value:BillNumber" } })
+                    @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h2 class="box-title"><b>Details</b></h2>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+            <div>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th style="display:none;">Detail Id</th>
+                            <th style="display:none;">Item Id</th>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind='foreach: OrderDetail' id="lineItemsBody">
+                        <tr>
+                            <td style="display:none;">
+                                <span data-bind='text: Id'> </span>
+                            </td>
+                            <td style="display:none;">
+                                <span data-bind='text: ItemId'> </span>
+                            </td>
+                            <td class='itemName'>
+                                <span data-bind='text: ItemName'> </span>
+                            </td>
+                            <td class='price'>
+                                <span data-bind='text: Price'> </span>
+                            </td>
+                            <td class='quantity'>
+                                <input type="number" min="1" max="100" data-bind='value: Quantity, valueUpdate: "afterkeydown"' id="txtQuantity"/>
+                            </td>
+                            <td class='lineTotal'>
+                                <span data-bind="text: LineTotal()"> </span>
+                            </td>
+                            <td>
+                                <a href='#' data-bind='click: $parent.deleteLine' tabindex="-1">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class='col-md-8 pull-right'>
+                    -----------------------<br />
+                                           <table>
+                                               <tr>
+                                                   <th class="text-right"> Total Value : &nbsp;&nbsp;</th>
+                                                   <td><span data-bind="text: GrandTotal()"> </span></td>
+                                               </tr>
+                                               <tr>
+                                                   <th class="text-right"> GST : &nbsp;&nbsp;</th>
+                                                   <td><span class="" data-bind="text: GST()"> </span>@("   (@16%)")</td>
+                                               </tr>
+                                               <tr><th class="text-right">Net Total : &nbsp;&nbsp;</th><td><span class="" data-bind="text: NetTotal()"> </span></td></tr>
+                                               <tr><td colspan="2"  class="text-right"><button data-bind='click: save' class="btn btn-success btn-xl pull-left">Place order</button></td></tr>
+                                           </table>
+                    @*<b>Total value :</b> <br />
+                    <b  style="display:none;">Discount  : </b><input type="number" min="1"  data-bind='value: DiscountValue, valueUpdate: "afterkeydown"' style="display:none;"/> 
+                    <b  style="display:none;">After Discount: </b><span class="" data-bind="text: TotalAfterDiscount()"  style="display:none;"> </span>                                                                  
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GST : </b><br />
+                    ------------------------<br />
+                    <b>Net Total :</b> 
+                    <br />*@
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="box-header with-border">
+            <input type="text" id="txtItemCode" class="form-control" placeholder="Enter Code" data-bind="valueUpdate: 'input', event: { keyup: searchKeyUp }" />
+    </div>
+    
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li><a href="#tabAll" data-toggle="tab">All</a></li>
+            @foreach (var item in ViewBag.Categories)
+            {
+                <li><a href="@("#tab"+item.Id)" id="@(item.Id)" data-toggle="tab">@item.Name</a></li>
+            }
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tabAll">
+                <div class="box-header">
+                    <div id="itemsContainer">
+                        @foreach (var item in ViewBag.Items)
+                        {
+                            string json = Newtonsoft.Json.JsonConvert.SerializeObject(
+                                new
+                                {
+                                    ItemId = item.Id,
+                                    Code = item.Code,
+                                    ItemName = item.Name,
+                                    Description = item.Description,
+                                    CategoryId = item.CategoryId,
+                                    ImageURL = item.ImageURL,
+                                    Price = item.Price,
+                                    VAT = item.VAT,
+                                    DiscountType = item.DiscountType,
+                                    DiscountValue = item.DiscountValue,
+                                    ValidFromDate = item.ValidFromDate,
+                                    ValidToDate = item.ValidToDate,
+                                    IsDealItem_YN = item.IsDealItem_YN
+                                });
+                            var hideDiv = (item.IsDealItem_YN ? "style='Display:none;'" : "");
+                        <div data-bind="click: addLine.bind($data,JSON.stringify(@json))" class="btn col-md-3 btn-info btn-sq"
+                             style="margin-bottom:3px;padding:2px;text-align:center;border:1px solid black;" id="ItemButtons" @hideDiv }>
+                            
+                            <p class="ow">
+                                @item.Name<br />
+                                <span style="color:white;font-size:16px;font-weight:800">@item.Code </span>
+                            </p>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- /.tab-pane -->
+            @foreach (var category in ViewBag.Categories)
+            {
+                <div class="tab-pane" id="@("tab"+category.Id)">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <div id="itemsContainer">
+                                @foreach (var item in ((List<RestaurantManagementSystem.Models.Item>)ViewBag.Items).Where(t => t.CategoryId == category.Id))
+                                {
+                                    string json = Newtonsoft.Json.JsonConvert.SerializeObject(
+                                        new
+                                        {
+                                            ItemId = item.Id,
+                                            Code = item.Code,
+                                            ItemName = item.Name,
+                                            Description = item.Description,
+                                            CategoryId = item.CategoryId,
+                                            ImageURL = item.ImageURL,
+                                            Price = item.Price,
+                                            VAT = item.VAT,
+                                            DiscountType = item.DiscountType,
+                                            DiscountValue = item.DiscountValue,
+                                            ValidFromDate = item.ValidFromDate,
+                                            ValidToDate = item.ValidToDate,
+                                            IsDealItem_YN = item.IsDealItem_YN
+                                        });
+                                    var hideDiv = (item.IsDealItem_YN ? "style='Display:none;'" : "");
+                                    <div data-bind="click: addLine.bind($data,JSON.stringify(@json))" class="btn col-md-3 btn-info btn-sq"
+                                         style="margin-bottom:3px;padding:2px;text-align:center;border:1px solid black;" id="ItemButtons" @hideDiv }>
+                                        <p class="ow"> @item.Name<br /><span style="color:white;font-size:16px;font-weight:800"> @item.Code </span></p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+    </div>
+</div>
+
+@{string data = Newtonsoft.Json.JsonConvert.SerializeObject(Model); }
+@section Scripts {
+    <script src="~/Scripts/OrderViewModel.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    <script type="text/javascript">
+            var orderViewModel = new OrderViewModel(@Html.Raw(data));
+        ko.applyBindings(orderViewModel);
+        function loadItemsByCategory(categoryTypeId) {
+            $.ajax({
+                url: "/Item/GetItemsByCategoryType",
+                data: JSON.stringify({ categoryTypeId: categoryTypeId }),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    $("#itemsContainer").empty();
+                    $.each(result, function (i, item) {
+                        console.log(item);
+                        $("#itemsContainer").append("<div id='bindClick' data-bind='click:addLine.bind($data,JSON.stringify(" + JSON.stringify(item) + "))'" +
+                            " class='btn col-md-3 btn-info btn-sq' " +
+                            " style='margin-bottom:3px;padding:2px;text-align:center;border:1px solid black;'" + "id='ItemButtons'>" +
+                            " <p class='ow'> " + item.Name + "<br /><span style='color:white;font-size:16px;font-weight:800'>"+  item.Code+"</span></p>" +
+                            "</div>");
+
+                    });
+
+                    ko.applyBindings(orderViewModel, $('#itemsContainer'))
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datetimepicker').datepicker(
+                {
+                    format: 'dd-MM-yyyy' 
+                });
+        });
+        $("#OrderDateTime").val(moment().format('DD-MMMM-YYYY'));
+        $('.datetimepicker').on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        });
+        function formatCurrency(value) {
+            return "$" + value.toFixed(2);
+        }
+        function AddItembyCode(txt) {
+            var itemCode = txt.val();
+            //GetItemByCode(string code)
+            $.ajax({
+                url: "/Item/GetItemByCode",
+                data: JSON.stringify({ code: itemCode}),
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    console.log("STRINGIFIED:>>>>"+JSON.stringify(result));
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });
+        }
+
+        //$(document).on('keypress', function (e) {
+        //    if ($('#txtQuantity').focus() && e.which == 13) {
+        //        alert('Focus moved Line item quantity!');
+        //    }
+        //});
+    </script>
+}
+<style>
+    body {
+        font-family: arial;
+        font-size: 14px;
+    }
+
+    .liveExample {
+        padding: 1em;
+        background-color: #EEEEDD;
+        border: 1px solid #CCC;
+        max-width: 655px;
+    }
+
+        .liveExample input {
+            font-family: Arial;
+        }
+
+        .liveExample b {
+            font-weight: bold;
+        }
+
+        .liveExample p {
+            margin-top: 0.9em;
+            margin-bottom: 0.9em;
+        }
+
+        .liveExample select[multiple] {
+            width: 100%;
+            height: 8em;
+        }
+
+        .liveExample h2 {
+            margin-top: 0.4em;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .liveExample th {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .liveExample .price {
+            text-align: right;
+            padding-right: 2em;
+        }
+
+        .liveExample .grandTotal {
+            border-top: 1px solid silver;
+            padding-top: 0.5em;
+            font-size: 1.2em;
+        }
+
+            .liveExample .grandTotal SPAN {
+                font-weight: bold;
+            }
+
+        .liveExample table, .liveExample td, .liveExample th {
+            padding: 0.2em;
+            border-width: 0;
+            margin: 0;
+            vertical-align: top;
+        }
+
+            .liveExample td input, .liveExample td select {
+                width: 8em;
+            }
+
+            .liveExample td.quantity input {
+                width: 4em;
+            }
+
+            .liveExample td select {
+                height: 1.8em;
+                white-space: nowrap;
+            }
+
+
+    li {
+        list-style-type: disc;
+        margin-left: 20px;
+    }
+
+    .btn-sq-lg {
+        width: 150px !important;
+        height: 150px !important;
+    }
+
+    .btn-sq {
+        font-size: 10px;
+    }
+
+    .btn-sq-sm {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 10px;
+    }
+
+    .btn-sq-xs {
+        width: 25px !important;
+        height: 25px !important;
+        padding: 2px;
+    }
+    .ow {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+   
+
+</style>

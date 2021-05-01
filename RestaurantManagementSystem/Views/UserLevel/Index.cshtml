@@ -1,0 +1,65 @@
+﻿@model IEnumerable<RestaurantManagementSystem.Models.UserLevel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="content-header">
+    <h1></h1>
+    <ol class="breadcrumb"></ol>
+</section>
+<div class="box box-primary">
+    <div class="box-header">
+        <h3 class="box-title">User Levels</h3>
+       
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="col-md-12">
+            <p class="pull-right">
+                @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
+            </p>
+         </div>
+        <div class="col-md-12">
+            <table id="tblMain" class="table table-bordered table-striped">
+
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LevelName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsActive_YN)
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LevelName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @(String.Equals(item.IsActive_YN, true) ? "YES" : "")
+                            </td>
+                            <td>
+                                @Html.ActionLink(" ", "Edit", new { id = item.LevelId },new {@class="fa fa-edit" }) &nbsp; &nbsp;
+                                @Html.ActionLink(" ", "Details", new { id = item.LevelId },new { @class = "fa fa-eye"}) &nbsp; &nbsp;
+                                @Html.ActionLink(" ", "Delete", new { id = item.LevelId },new { @class = "fa fa-remove" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

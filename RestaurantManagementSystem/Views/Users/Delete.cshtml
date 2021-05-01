@@ -1,0 +1,125 @@
+﻿@model RestaurantManagementSystem.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1></h1>
+    <ol class="breadcrumb"></ol>
+</section>
+
+<div class="box box-primary">
+    <div class="box-header">
+        <h3>Are you sure you want to delete this?</h3>
+
+    </div>
+
+    <div class="box-body">
+
+        <div class="form-group col-md-6">
+            <div class="form-group">
+                <label>Email</label>
+
+                @Html.DisplayFor(model => model.Email)
+
+            </div>
+
+            <div class="form-group">
+                <label>User Level</label>
+
+                @*@Html.DropDownList("LevelId", null, htmlAttributes: new { @class = "form-control select", @onchange = "this.form.submit();" })*@
+                @if (ViewBag.Level != null)
+                {
+                    @*@Html.DropDownListFor(model => model.LevelId, new SelectList(ViewBag.Level, "LevelId", "LevelName", 1), "select UserLevel", htmlAttributes: new { @id = "Level" })*@
+                    <p> @(ViewBag.Level)</p>
+                        @Html.HiddenFor(model => model.LevelId)
+                        @Html.HiddenFor(model => model.Id)
+                }
+
+            </div>
+
+            <div class="form-group">
+                <label>Roles</label>
+
+                <div id="role" class="form-control" style="height:100px">
+                </div>
+
+            </div>
+
+
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                    @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*// model.levelId = $("#Level").val();
+
+        //$("#role").load('@Url.Action("GetRoles","Account")' + '?model=' + myModel)
+        $("#role").load('@Url.Action("GetRoles","Account", Model)' + '?model=' + myModel)*@
+    <script>
+        $(document).ready(function () {
+            $("#role").prop("disabled", true);
+            //$("#Level").change(function ()
+            //{
+            //    populateRoles();
+            //});
+            populateRoles();
+        });
+
+        function populateRoles() {
+            if ($("#Level").val() != "select UserLevel") {
+                // alert($("#Level").val());
+                //alert($("#Id").val());
+                var options = {};
+                options.url = "/Users/GetRoles";
+                options.type = "POST";
+                options.data = JSON.stringify({ levelId: $("#LevelId").val(), Id: $("#Id").val() });
+                // options.data = formContainer.serialize();
+                options.dataType = "json";
+                options.contentType = "application/json";
+                options.success = function (roles) {
+
+
+                    $("#role").empty();
+                    //$("#role").append(" <select id='UserRoles' name='UserRoles'>")
+                    for (var i = 0; i < roles.length; i++) {
+
+                        //alert('<input type="checkbox" id="UserRoles' + i + '" Name="UserSelectedRoles" value="' + roles[i].Value + '"/>' + roles[i].Text + ' <br>');
+                        //alert(roles[i].Selected);
+
+                        if (roles[i].Selected)
+                            $("#role").append('<label id="UserRoles' + i + '" name="UserSelectedRoles" value="' + roles[i].Text + '"/>' + roles[i].Text + ' <br>');
+                       // else
+                          //  $("#role").append('<label  id="UserRoles' + i + '" name="UserSelectedRoles" value="' + roles[i].Text + '"/>' + roles[i].Text + ' <br>');
+
+                    }
+                    $("#role").prop("disabled", false);
+                };
+                options.error = function () { alert("Error retrieving roles!"); };
+                $.ajax(options);
+            }
+            else {
+                $("#role").empty();
+                $("#role").append("No Roles Data");
+                $("#role").prop("disabled", true);
+            }
+        }
+    </script>
+}
+
+

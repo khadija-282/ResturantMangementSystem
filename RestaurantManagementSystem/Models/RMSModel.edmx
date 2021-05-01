@@ -1,0 +1,2817 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="POSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActivityLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Thread" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Level" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Logger" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Exception" Type="varchar" MaxLength="2000" />
+          <Property Name="userName" Type="varchar" MaxLength="50" />
+          <Property Name="activityType" Type="varchar" MaxLength="50" />
+          <Property Name="searchCriteria" Type="varchar" MaxLength="500" />
+          <Property Name="ipAddress" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LevelId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryTypeId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="CategoryType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryId" Type="bigint" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="IsActive_YN" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'lungfung.dbo.Configuration' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Configuration">
+          <Key>
+            <PropertyRef Name="RestrauarntId" />
+            <PropertyRef Name="DataSync" />
+          </Key>
+          <Property Name="RestrauarntId" Type="int" Nullable="false" />
+          <Property Name="RestaurantName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PNTN" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="Phone1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataSync" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="char" MaxLength="5" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="WorkPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Website" Type="nvarchar" MaxLength="200" />
+          <Property Name="AddressLine1" Type="text" />
+          <Property Name="AddressLine2" Type="text" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="text" />
+          <Property Name="CountryId" Type="bigint" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="CityId" Type="bigint" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ISO" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive_YN" Type="bit" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Deal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="bigint" />
+          <Property Name="ItemId_Parent" Type="bigint" />
+        </EntityType>
+        <EntityType Name="DiscountType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'lungfung.dbo.FBR_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="FBR_Table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillNo" Type="bigint" />
+          <Property Name="Transmitted" Type="bit" />
+          <Property Name="Entry_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="InventoryItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Barcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="PackagingUnit" Type="nvarchar" MaxLength="50" />
+          <Property Name="RecipeUnit" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReciptUnitPerPackage" Type="float" />
+          <Property Name="SortOrder" Type="int" />
+          <Property Name="ReOrderLevel" Type="int" />
+          <Property Name="ReplenishLevel" Type="float" />
+          <Property Name="TotalPackages" Type="float" />
+          <Property Name="UpdateRecipeBalance" Type="bit" />
+          <Property Name="PackagePuchasePrice" Type="float" />
+          <Property Name="PackageSellingPrice" Type="float" />
+          <Property Name="Group" Type="bigint" />
+          <Property Name="LocationId" Type="bigint" />
+          <Property Name="VendorId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="InventoryLocation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="SortOrder" Type="int" />
+          <Property Name="ShelfLocation" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="InvIssue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IssueNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="IssueDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="IssueTo" Type="bigint" />
+          <Property Name="IssueBy" Type="bigint" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="IssuePlace" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="InvIssueDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvIssueId" Type="bigint" />
+          <Property Name="InventoryItemId" Type="bigint" />
+          <Property Name="Quantity" Type="float" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="bigint" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="bigint" Nullable="false" />
+          <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+          <Property Name="GrandTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DiscountValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GST" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="NetTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ServiceCharges" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsSentToPRA" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="InvReceipt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReceiptNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceiptDate" Type="datetime" />
+          <Property Name="VendorId" Type="bigint" />
+          <Property Name="ReceivedBy" Type="bigint" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceivedPlace" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="InvReceiptDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvReceiptId" Type="bigint" />
+          <Property Name="InventoryItemId" Type="bigint" />
+          <Property Name="Quantity" Type="float" />
+          <Property Name="Price" Type="float" />
+        </EntityType>
+        <EntityType Name="InvReturn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReturnNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReturnDate" Type="datetime" />
+          <Property Name="ReturnBy" Type="bigint" />
+          <Property Name="ReturnTo" Type="bigint" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="InvReturnDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvReturnId" Type="bigint" />
+          <Property Name="InventoryItemId" Type="bigint" />
+          <Property Name="Quantity" Type="float" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="CategoryId" Type="bigint" />
+          <Property Name="ImageURL" Type="nvarchar(max)" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="VAT" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountType" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiscountValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ValidFromDate" Type="datetime" />
+          <Property Name="ValidToDate" Type="datetime" />
+          <Property Name="IsDealItem_YN" Type="bit" Nullable="false" />
+          <Property Name="IsFavoriteItem_YN" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Parent_Menu_Id" Type="bigint" />
+        </EntityType>
+        <EntityType Name="MenuAccess">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuId" Type="bigint" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="HasAccess_YN" Type="bit" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="OrderDateTime" Type="datetime" />
+          <Property Name="ExpectedServingTime" Type="datetime" />
+          <Property Name="CustomerId" Type="bigint" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="StatusId" Type="bigint" />
+          <Property Name="TableNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="WaiterId" Type="bigint" />
+          <Property Name="GrandTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NetTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="Shift" Type="char" MaxLength="1" />
+          <Property Name="Location" Type="char" MaxLength="2" />
+          <Property Name="Pax" Type="int" />
+          <Property Name="BillNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="bigint" />
+          <Property Name="ItemId" Type="bigint" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LineTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Province" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="MenuItemId" Type="bigint" />
+          <Property Name="InventoryItemId" Type="bigint" />
+          <Property Name="Quantity" Type="float" />
+        </EntityType>
+        <EntityType Name="SCWTimer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="bigint" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="bigint" Nullable="false" />
+          <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+          <Property Name="GrandTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DiscountValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GST" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="NetTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ServiceCharges" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsInvoiced" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryId" Type="bigint" />
+          <Property Name="IsActive_YN" Type="bit" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Factor" Type="float" />
+          <Property Name="Dimension" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserLevel">
+          <Key>
+            <PropertyRef Name="LevelId" />
+          </Key>
+          <Property Name="LevelId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive_YN" Type="bit" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Waiter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'lungfung.dbo.vw_Contacts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Contacts">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="101" Nullable="false" />
+          <Property Name="Title" Type="char" MaxLength="5" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="WorkPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Website" Type="nvarchar" MaxLength="200" />
+          <Property Name="AddressLine1" Type="text" />
+          <Property Name="AddressLine2" Type="text" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="text" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryId" Type="bigint" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="CityId" Type="bigint" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'lungfung.dbo.vw_Items' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Items">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsDealItem_YN" Type="bit" />
+        </EntityType>
+        <Association Name="FK_AspNetRoles_UserLevel">
+          <End Role="UserLevel" Type="Self.UserLevel" Multiplicity="0..1" />
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLevel">
+              <PropertyRef Name="LevelId" />
+            </Principal>
+            <Dependent Role="AspNetRoles">
+              <PropertyRef Name="LevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_CategoryType">
+          <End Role="CategoryType" Type="Self.CategoryType" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CategoryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contact">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contact">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contact">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+          <End Role="Deal" Type="Self.Deal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deal">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_Item1">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+          <End Role="Deal" Type="Self.Deal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deal">
+              <PropertyRef Name="ItemId_Parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="Menu1" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Menu1">
+              <PropertyRef Name="Parent_Menu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuAccess_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="MenuAccess" Type="Self.MenuAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuAccess">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCWTimer_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="SCWTimer" Type="Self.SCWTimer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SCWTimer">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetContactsPerPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="nvarchar" Mode="In" />
+          <Parameter Name="PageNo" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="SortColumn" Type="nvarchar" Mode="In" />
+          <Parameter Name="SortOrder" Type="nvarchar" Mode="In" />
+          <Parameter Name="FNameFilter" Type="nvarchar" Mode="In" />
+          <Parameter Name="LNameFilter" Type="nvarchar" Mode="In" />
+          <Parameter Name="WorkPhFilter" Type="nvarchar" Mode="In" />
+          <Parameter Name="HomePhFilter" Type="nvarchar" Mode="In" />
+          <Parameter Name="MobilePhFilter" Type="nvarchar" Mode="In" />
+          <Parameter Name="FaxFilter" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmailFilter" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TableName" Type="nvarchar" Mode="In" />
+          <Parameter Name="ColumnsName" Type="nvarchar" Mode="In" />
+          <Parameter Name="PageNo" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="SortColumn" Type="nvarchar" Mode="In" />
+          <Parameter Name="SortOrder" Type="nvarchar" Mode="In" />
+          <Parameter Name="Search" Type="nvarchar" Mode="In" />
+          <Parameter Name="ColumnSearchQry" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="totalRecords" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="GetMenusByRoleId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parentMenuId" Type="int" Mode="In" />
+          <Parameter Name="RoleId" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetPermissionsByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetPermissionsByUserId_v1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetUserRoleByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="NextOrderNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar" />
+        <Function Name="SaveRolePermissions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleId" Type="varchar" Mode="In" />
+          <Parameter Name="MenuIds" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="StringSplit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="String" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Separator" Type="char" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Value" Type="varchar(max)" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="POSModelStoreContainer">
+          <EntitySet Name="ActivityLog" EntityType="Self.ActivityLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryType" EntityType="Self.CategoryType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deal" EntityType="Self.Deal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiscountType" EntityType="Self.DiscountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryItem" EntityType="Self.InventoryItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryLocation" EntityType="Self.InventoryLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvIssue" EntityType="Self.InvIssue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvIssueDetail" EntityType="Self.InvIssueDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvReceipt" EntityType="Self.InvReceipt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvReceiptDetail" EntityType="Self.InvReceiptDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvReturn" EntityType="Self.InvReturn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvReturnDetail" EntityType="Self.InvReturnDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuAccess" EntityType="Self.MenuAccess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipe" EntityType="Self.Recipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCWTimer" EntityType="Self.SCWTimer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Waiter" EntityType="Self.Waiter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Configuration" EntityType="Self.Configuration" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Configuration].[RestrauarntId] AS [RestrauarntId], 
+    [Configuration].[RestaurantName] AS [RestaurantName], 
+    [Configuration].[PNTN] AS [PNTN], 
+    [Configuration].[Address] AS [Address], 
+    [Configuration].[Phone1] AS [Phone1], 
+    [Configuration].[Phone2] AS [Phone2], 
+    [Configuration].[DataSync] AS [DataSync]
+    FROM [dbo].[Configuration] AS [Configuration]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FBR_Table" EntityType="Self.FBR_Table" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FBR_Table].[ID] AS [ID], 
+    [FBR_Table].[BillNo] AS [BillNo], 
+    [FBR_Table].[Transmitted] AS [Transmitted], 
+    [FBR_Table].[Entry_Date] AS [Entry_Date]
+    FROM [dbo].[FBR_Table] AS [FBR_Table]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Contacts" EntityType="Self.vw_Contacts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Contacts].[Id] AS [Id], 
+    [vw_Contacts].[Name] AS [Name], 
+    [vw_Contacts].[Title] AS [Title], 
+    [vw_Contacts].[JobTitle] AS [JobTitle], 
+    [vw_Contacts].[Gender] AS [Gender], 
+    [vw_Contacts].[Company] AS [Company], 
+    [vw_Contacts].[DOB] AS [DOB], 
+    [vw_Contacts].[WorkPhone] AS [WorkPhone], 
+    [vw_Contacts].[HomePhone] AS [HomePhone], 
+    [vw_Contacts].[MobilePhone] AS [MobilePhone], 
+    [vw_Contacts].[Fax] AS [Fax], 
+    [vw_Contacts].[Email] AS [Email], 
+    [vw_Contacts].[Website] AS [Website], 
+    [vw_Contacts].[AddressLine1] AS [AddressLine1], 
+    [vw_Contacts].[AddressLine2] AS [AddressLine2], 
+    [vw_Contacts].[PostalCode] AS [PostalCode], 
+    [vw_Contacts].[Notes] AS [Notes], 
+    [vw_Contacts].[Country] AS [Country], 
+    [vw_Contacts].[State] AS [State], 
+    [vw_Contacts].[City] AS [City], 
+    [vw_Contacts].[CountryId] AS [CountryId], 
+    [vw_Contacts].[StateId] AS [StateId], 
+    [vw_Contacts].[CityId] AS [CityId], 
+    [vw_Contacts].[CreatedBy] AS [CreatedBy], 
+    [vw_Contacts].[CreatedOn] AS [CreatedOn], 
+    [vw_Contacts].[UpdatedBy] AS [UpdatedBy], 
+    [vw_Contacts].[UpdatedOn] AS [UpdatedOn]
+    FROM [dbo].[vw_Contacts] AS [vw_Contacts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Items" EntityType="Self.vw_Items" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Items].[Id] AS [Id], 
+    [vw_Items].[Code] AS [Code], 
+    [vw_Items].[Name] AS [Name], 
+    [vw_Items].[Description] AS [Description], 
+    [vw_Items].[Category] AS [Category], 
+    [vw_Items].[Price] AS [Price], 
+    [vw_Items].[IsDealItem_YN] AS [IsDealItem_YN]
+    FROM [dbo].[vw_Items] AS [vw_Items]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AspNetRoles_UserLevel" Association="Self.FK_AspNetRoles_UserLevel">
+            <End Role="UserLevel" EntitySet="UserLevel" />
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_CategoryType" Association="Self.FK_Category_CategoryType">
+            <End Role="CategoryType" EntitySet="CategoryType" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Country" Association="Self.FK_City_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="Self.FK_City_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_City" Association="Self.FK_Contact_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Contact" EntitySet="Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_Country" Association="Self.FK_Contact_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Contact" EntitySet="Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_State" Association="Self.FK_Contact_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Contact" EntitySet="Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_Item" Association="Self.FK_Deal_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Deal" EntitySet="Deal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_Item1" Association="Self.FK_Deal_Item1">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Deal" EntitySet="Deal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Order" Association="Self.FK_Invoice_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Menu" Association="Self.FK_Menu_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Menu1" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuAccess_Menu" Association="Self.FK_MenuAccess_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="MenuAccess" EntitySet="MenuAccess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_AspNetUsers" Association="Self.FK_Order_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Status" Association="Self.FK_Order_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Item" Association="Self.FK_OrderDetail_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCWTimer_Order" Association="Self.FK_SCWTimer_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="SCWTimer" EntitySet="SCWTimer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="POSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="StringSplit_Result">
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </ComplexType>
+        <EntityContainer Name="POSEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="StringSplit" IsComposable="true" ReturnType="Collection(POSModel.StringSplit_Result)">
+            <Parameter Name="String" Mode="In" Type="String" />
+            <Parameter Name="Separator" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetContacts" ReturnType="Collection(POSModel.GetContacts_Result)">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Company" Mode="In" Type="String" />
+            <Parameter Name="JobTitle" Mode="In" Type="String" />
+            <Parameter Name="WorkPhone" Mode="In" Type="String" />
+            <Parameter Name="MobilePhone" Mode="In" Type="String" />
+            <Parameter Name="HomePhone" Mode="In" Type="String" />
+            <Parameter Name="Fax" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="CountryId" Mode="In" Type="Int32" />
+            <Parameter Name="StateId" Mode="In" Type="Int32" />
+            <Parameter Name="CityId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetContactsPerPage" ReturnType="Collection(POSModel.GetContactsPerPage_Result)">
+            <Parameter Name="Search" Mode="In" Type="String" />
+            <Parameter Name="PageNo" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="SortColumn" Mode="In" Type="String" />
+            <Parameter Name="SortOrder" Mode="In" Type="String" />
+            <Parameter Name="FNameFilter" Mode="In" Type="String" />
+            <Parameter Name="LNameFilter" Mode="In" Type="String" />
+            <Parameter Name="WorkPhFilter" Mode="In" Type="String" />
+            <Parameter Name="HomePhFilter" Mode="In" Type="String" />
+            <Parameter Name="MobilePhFilter" Mode="In" Type="String" />
+            <Parameter Name="FaxFilter" Mode="In" Type="String" />
+            <Parameter Name="EmailFilter" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetContactsPerPage_V2">
+            <Parameter Name="TableName" Mode="In" Type="String" />
+            <Parameter Name="ColumnsName" Mode="In" Type="String" />
+            <Parameter Name="PageNo" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="SortColumn" Mode="In" Type="String" />
+            <Parameter Name="SortOrder" Mode="In" Type="String" />
+            <Parameter Name="Search" Mode="In" Type="String" />
+            <Parameter Name="ColumnSearchQry" Mode="In" Type="String" />
+            <Parameter Name="totalRecords" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetMenusByRoleId" ReturnType="Collection(POSModel.GetMenusByRoleId_Result)">
+            <Parameter Name="parentMenuId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetPermissionsByUserId" ReturnType="Collection(POSModel.GetPermissionsByUserId_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetPermissionsByUserId_v1" ReturnType="Collection(POSModel.GetPermissionsByUserId_v1_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetUserRoleByUserId" ReturnType="Collection(POSModel.GetUserRoleByUserId_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SaveRolePermissions">
+            <Parameter Name="RoleId" Mode="In" Type="String" />
+            <Parameter Name="MenuIds" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetData">
+            <Parameter Name="TableName" Mode="In" Type="String" />
+            <Parameter Name="ColumnsName" Mode="In" Type="String" />
+            <Parameter Name="PageNo" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="SortColumn" Mode="In" Type="String" />
+            <Parameter Name="SortOrder" Mode="In" Type="String" />
+            <Parameter Name="Search" Mode="In" Type="String" />
+            <Parameter Name="ColumnSearchQry" Mode="In" Type="String" />
+            <Parameter Name="totalRecords" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(POSModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(POSModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="ActivityLogs" EntityType="POSModel.ActivityLog" />
+          <EntitySet Name="AspNetRoles" EntityType="POSModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="POSModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="POSModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="POSModel.AspNetUser" />
+          <EntitySet Name="Categories" EntityType="POSModel.Category" />
+          <EntitySet Name="CategoryTypes" EntityType="POSModel.CategoryType" />
+          <EntitySet Name="Cities" EntityType="POSModel.City" />
+          <EntitySet Name="Contacts" EntityType="POSModel.Contact" />
+          <EntitySet Name="Countries" EntityType="POSModel.Country" />
+          <EntitySet Name="Customers" EntityType="POSModel.Customer" />
+          <EntitySet Name="Deals" EntityType="POSModel.Deal" />
+          <EntitySet Name="DiscountTypes" EntityType="POSModel.DiscountType" />
+          <EntitySet Name="InventoryItems" EntityType="POSModel.InventoryItem" />
+          <EntitySet Name="InventoryLocations" EntityType="POSModel.InventoryLocation" />
+          <EntitySet Name="InvIssueDetails" EntityType="POSModel.InvIssueDetail" />
+          <EntitySet Name="Invoices" EntityType="POSModel.Invoice" />
+          <EntitySet Name="InvReceiptDetails" EntityType="POSModel.InvReceiptDetail" />
+          <EntitySet Name="InvReturns" EntityType="POSModel.InvReturn" />
+          <EntitySet Name="InvReturnDetails" EntityType="POSModel.InvReturnDetail" />
+          <EntitySet Name="Items" EntityType="POSModel.Item" />
+          <EntitySet Name="Locations" EntityType="POSModel.Location" />
+          <EntitySet Name="Menus" EntityType="POSModel.Menu" />
+          <EntitySet Name="MenuAccesses" EntityType="POSModel.MenuAccess" />
+          <EntitySet Name="Orders" EntityType="POSModel.Order" />
+          <EntitySet Name="OrderDetails" EntityType="POSModel.OrderDetail" />
+          <EntitySet Name="Provinces" EntityType="POSModel.Province" />
+          <EntitySet Name="Recipes" EntityType="POSModel.Recipe" />
+          <EntitySet Name="SCWTimers" EntityType="POSModel.SCWTimer" />
+          <EntitySet Name="States" EntityType="POSModel.State" />
+          <EntitySet Name="Status" EntityType="POSModel.Status" />
+          <EntitySet Name="Units" EntityType="POSModel.Unit" />
+          <EntitySet Name="UserLevels" EntityType="POSModel.UserLevel" />
+          <EntitySet Name="Vendors" EntityType="POSModel.Vendor" />
+          <EntitySet Name="Waiters" EntityType="POSModel.Waiter" />
+          <EntitySet Name="Configurations" EntityType="POSModel.Configuration" />
+          <EntitySet Name="FBR_Table" EntityType="POSModel.FBR_Table" />
+          <EntitySet Name="vw_Contacts" EntityType="POSModel.vw_Contacts" />
+          <EntitySet Name="vw_Items" EntityType="POSModel.vw_Items" />
+          <AssociationSet Name="FK_AspNetRoles_UserLevel" Association="POSModel.FK_AspNetRoles_UserLevel">
+            <End Role="UserLevel" EntitySet="UserLevels" />
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="POSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="POSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_AspNetUsers" Association="POSModel.FK_Order_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_CategoryType" Association="POSModel.FK_Category_CategoryType">
+            <End Role="CategoryType" EntitySet="CategoryTypes" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Category" Association="POSModel.FK_Item_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Country" Association="POSModel.FK_City_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="POSModel.FK_City_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_City" Association="POSModel.FK_Contact_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Contact" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_Country" Association="POSModel.FK_Contact_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Contact" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contact_State" Association="POSModel.FK_Contact_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="Contact" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="POSModel.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_Item" Association="POSModel.FK_Deal_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Deal" EntitySet="Deals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_Item1" Association="POSModel.FK_Deal_Item1">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Deal" EntitySet="Deals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Order" Association="POSModel.FK_Invoice_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Item" Association="POSModel.FK_OrderDetail_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Menu" Association="POSModel.FK_Menu_Menu">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="Menu1" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MenuAccess_Menu" Association="POSModel.FK_MenuAccess_Menu">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="MenuAccess" EntitySet="MenuAccesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Status" Association="POSModel.FK_Order_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Order" Association="POSModel.FK_OrderDetail_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCWTimer_Order" Association="POSModel.FK_SCWTimer_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="SCWTimer" EntitySet="SCWTimers" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="POSModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="InvIssues" EntityType="POSModel.InvIssue" />
+          <EntitySet Name="InvReceipts" EntityType="POSModel.InvReceipt" />
+          </EntityContainer>
+        <ComplexType Name="GetContacts_Result">
+          <Property Type="Int64" Name="SrNo" Nullable="true" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Company" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="JobTitle" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="WorkPhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MobilePhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="HomePhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Fax" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetContactsPerPage_Result">
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="WorkPhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="HomePhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MobilePhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Fax" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetMenusByRoleId_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DisplayName" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="Parent_Menu_Id" Nullable="true" />
+          <Property Type="Int32" Name="selected" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetPermissionsByUserId_Result">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="Permission" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetPermissionsByUserId_v1_Result">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="Permission" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetUserRoleByUserId_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="ActivityLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Thread" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Logger" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="Exception" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activityType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="searchCriteria" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LevelId" Type="Int64" />
+          <NavigationProperty Name="UserLevel" Relationship="POSModel.FK_AspNetRoles_UserLevel" FromRole="AspNetRole" ToRole="UserLevel" />
+          <NavigationProperty Name="AspNetUsers" Relationship="POSModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="POSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="POSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="POSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="POSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="Orders" Relationship="POSModel.FK_Order_AspNetUsers" FromRole="AspNetUser" ToRole="Order" />
+          <NavigationProperty Name="AspNetRoles" Relationship="POSModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryTypeId" Type="Int64" />
+          <NavigationProperty Name="CategoryType" Relationship="POSModel.FK_Category_CategoryType" FromRole="Category" ToRole="CategoryType" />
+          <NavigationProperty Name="Items" Relationship="POSModel.FK_Item_Category" FromRole="Category" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="CategoryType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Categories" Relationship="POSModel.FK_Category_CategoryType" FromRole="CategoryType" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int64" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="IsActive_YN" Type="Boolean" />
+          <NavigationProperty Name="Country" Relationship="POSModel.FK_City_Country" FromRole="City" ToRole="Country" />
+          <NavigationProperty Name="State" Relationship="POSModel.FK_City_State" FromRole="City" ToRole="State" />
+          <NavigationProperty Name="Contacts" Relationship="POSModel.FK_Contact_City" FromRole="City" ToRole="Contact" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="WorkPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HomePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CountryId" Type="Int64" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="CityId" Type="Int64" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="POSModel.FK_Contact_City" FromRole="Contact" ToRole="City" />
+          <NavigationProperty Name="Country" Relationship="POSModel.FK_Contact_Country" FromRole="Contact" ToRole="Country" />
+          <NavigationProperty Name="State" Relationship="POSModel.FK_Contact_State" FromRole="Contact" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ISO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive_YN" Type="Boolean" />
+          <NavigationProperty Name="Cities" Relationship="POSModel.FK_City_Country" FromRole="Country" ToRole="City" />
+          <NavigationProperty Name="Contacts" Relationship="POSModel.FK_Contact_Country" FromRole="Country" ToRole="Contact" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="POSModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Deal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int64" />
+          <Property Name="ItemId_Parent" Type="Int64" />
+          <NavigationProperty Name="Item" Relationship="POSModel.FK_Deal_Item" FromRole="Deal" ToRole="Item" />
+          <NavigationProperty Name="Item1" Relationship="POSModel.FK_Deal_Item1" FromRole="Deal" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="DiscountType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="InventoryItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PackagingUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecipeUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReciptUnitPerPackage" Type="Double" />
+          <Property Name="SortOrder" Type="Int32" />
+          <Property Name="ReOrderLevel" Type="Int32" />
+          <Property Name="ReplenishLevel" Type="Double" />
+          <Property Name="TotalPackages" Type="Double" />
+          <Property Name="UpdateRecipeBalance" Type="Boolean" />
+          <Property Name="PackagePuchasePrice" Type="Double" />
+          <Property Name="PackageSellingPrice" Type="Double" />
+          <Property Name="Group" Type="Int64" />
+          <Property Name="LocationId" Type="Int64" />
+          <Property Name="VendorId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="InventoryLocation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" />
+          <Property Name="ShelfLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="InvIssueDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvIssueId" Type="Int64" />
+          <Property Name="InventoryItemId" Type="Int64" />
+          <Property Name="Quantity" Type="Double" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int64" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="Int64" Nullable="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GrandTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="DiscountValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GST" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="NetTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceCharges" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsSentToPRA" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="POSModel.FK_Invoice_Order" FromRole="Invoice" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="InvReceiptDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvReceiptId" Type="Int64" />
+          <Property Name="InventoryItemId" Type="Int64" />
+          <Property Name="Quantity" Type="Double" />
+          <Property Name="Price" Type="Double" />
+        </EntityType>
+        <EntityType Name="InvReturn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReturnNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnDate" Type="DateTime" Precision="3" />
+          <Property Name="ReturnBy" Type="Int64" />
+          <Property Name="ReturnTo" Type="Int64" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="InvReturnDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvReturnId" Type="Int64" />
+          <Property Name="InventoryItemId" Type="Int64" />
+          <Property Name="Quantity" Type="Double" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int64" />
+          <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="VAT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiscountValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ValidFromDate" Type="DateTime" Precision="3" />
+          <Property Name="ValidToDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDealItem_YN" Type="Boolean" Nullable="false" />
+          <Property Name="IsFavoriteItem_YN" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="POSModel.FK_Item_Category" FromRole="Item" ToRole="Category" />
+          <NavigationProperty Name="Deals" Relationship="POSModel.FK_Deal_Item" FromRole="Item" ToRole="Deal" />
+          <NavigationProperty Name="Deals1" Relationship="POSModel.FK_Deal_Item1" FromRole="Item" ToRole="Deal" />
+          <NavigationProperty Name="OrderDetails" Relationship="POSModel.FK_OrderDetail_Item" FromRole="Item" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parent_Menu_Id" Type="Int64" />
+          <NavigationProperty Name="Menu1" Relationship="POSModel.FK_Menu_Menu" FromRole="Menu" ToRole="Menu1" />
+          <NavigationProperty Name="Menu2" Relationship="POSModel.FK_Menu_Menu" FromRole="Menu1" ToRole="Menu" />
+          <NavigationProperty Name="MenuAccesses" Relationship="POSModel.FK_MenuAccess_Menu" FromRole="Menu" ToRole="MenuAccess" />
+        </EntityType>
+        <EntityType Name="MenuAccess">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuId" Type="Int64" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="HasAccess_YN" Type="Boolean" />
+          <NavigationProperty Name="Menu" Relationship="POSModel.FK_MenuAccess_Menu" FromRole="MenuAccess" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDateTime" Type="DateTime" Precision="3" />
+          <Property Name="ExpectedServingTime" Type="DateTime" Precision="3" />
+          <Property Name="CustomerId" Type="Int64" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="StatusId" Type="Int64" />
+          <Property Name="TableNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WaiterId" Type="Int64" />
+          <Property Name="GrandTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NetTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Shift" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Pax" Type="Int32" />
+          <Property Name="BillNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="POSModel.FK_Order_AspNetUsers" FromRole="Order" ToRole="AspNetUser" />
+          <NavigationProperty Name="Customer" Relationship="POSModel.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Invoices" Relationship="POSModel.FK_Invoice_Order" FromRole="Order" ToRole="Invoice" />
+          <NavigationProperty Name="Status" Relationship="POSModel.FK_Order_Status" FromRole="Order" ToRole="Status" />
+          <NavigationProperty Name="OrderDetails" Relationship="POSModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
+          <NavigationProperty Name="SCWTimers" Relationship="POSModel.FK_SCWTimer_Order" FromRole="Order" ToRole="SCWTimer" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int64" />
+          <Property Name="ItemId" Type="Int64" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="LineTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Item" Relationship="POSModel.FK_OrderDetail_Item" FromRole="OrderDetail" ToRole="Item" />
+          <NavigationProperty Name="Order" Relationship="POSModel.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Province1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MenuItemId" Type="Int64" />
+          <Property Name="InventoryItemId" Type="Int64" />
+          <Property Name="Quantity" Type="Double" />
+        </EntityType>
+        <EntityType Name="SCWTimer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int64" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="Int64" Nullable="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GrandTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="DiscountValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GST" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="NetTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceCharges" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsInvoiced" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="POSModel.FK_SCWTimer_Order" FromRole="SCWTimer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int64" />
+          <Property Name="IsActive_YN" Type="Boolean" />
+          <NavigationProperty Name="Cities" Relationship="POSModel.FK_City_State" FromRole="State" ToRole="City" />
+          <NavigationProperty Name="Contacts" Relationship="POSModel.FK_Contact_State" FromRole="State" ToRole="Contact" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="POSModel.FK_Order_Status" FromRole="Status" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Factor" Type="Double" />
+          <Property Name="Dimension" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserLevel">
+          <Key>
+            <PropertyRef Name="LevelId" />
+          </Key>
+          <Property Name="LevelId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive_YN" Type="Boolean" />
+          <NavigationProperty Name="AspNetRoles" Relationship="POSModel.FK_AspNetRoles_UserLevel" FromRole="UserLevel" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Waiter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Configuration">
+          <Key>
+            <PropertyRef Name="RestrauarntId" />
+            <PropertyRef Name="DataSync" />
+          </Key>
+          <Property Name="RestrauarntId" Type="Int32" Nullable="false" />
+          <Property Name="RestaurantName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PNTN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Phone1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataSync" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FBR_Table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillNo" Type="Int64" />
+          <Property Name="Transmitted" Type="Boolean" />
+          <Property Name="Entry_Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_Contacts">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="WorkPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HomePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int64" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="CityId" Type="Int64" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_Items">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsDealItem_YN" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_AspNetRoles_UserLevel">
+          <End Type="POSModel.UserLevel" Role="UserLevel" Multiplicity="0..1" />
+          <End Type="POSModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLevel">
+              <PropertyRef Name="LevelId" />
+            </Principal>
+            <Dependent Role="AspNetRole">
+              <PropertyRef Name="LevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="POSModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="POSModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="POSModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="POSModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_AspNetUsers">
+          <End Type="POSModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="POSModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_CategoryType">
+          <End Type="POSModel.CategoryType" Role="CategoryType" Multiplicity="0..1" />
+          <End Type="POSModel.Category" Role="Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CategoryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Category">
+          <End Type="POSModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="POSModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Country">
+          <End Type="POSModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="POSModel.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_State">
+          <End Type="POSModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="POSModel.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_City">
+          <End Type="POSModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="POSModel.Contact" Role="Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contact">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_Country">
+          <End Type="POSModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="POSModel.Contact" Role="Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contact">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contact_State">
+          <End Type="POSModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="POSModel.Contact" Role="Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contact">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Type="POSModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="POSModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_Item">
+          <End Type="POSModel.Item" Role="Item" Multiplicity="0..1" />
+          <End Type="POSModel.Deal" Role="Deal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deal">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_Item1">
+          <End Type="POSModel.Item" Role="Item" Multiplicity="0..1" />
+          <End Type="POSModel.Deal" Role="Deal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deal">
+              <PropertyRef Name="ItemId_Parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Order">
+          <End Type="POSModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="POSModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Item">
+          <End Type="POSModel.Item" Role="Item" Multiplicity="0..1" />
+          <End Type="POSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_Menu">
+          <End Type="POSModel.Menu" Role="Menu" Multiplicity="0..1" />
+          <End Type="POSModel.Menu" Role="Menu1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Menu1">
+              <PropertyRef Name="Parent_Menu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MenuAccess_Menu">
+          <End Type="POSModel.Menu" Role="Menu" Multiplicity="0..1" />
+          <End Type="POSModel.MenuAccess" Role="MenuAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MenuAccess">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Status">
+          <End Type="POSModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="POSModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Order">
+          <End Type="POSModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="POSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCWTimer_Order">
+          <End Type="POSModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="POSModel.SCWTimer" Role="SCWTimer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SCWTimer">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="POSModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="POSModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="InvIssue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IssueNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IssueTo" Type="Int64" />
+          <Property Name="IssueBy" Type="Int64" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IssuePlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="InvReceipt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReceiptNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiptDate" Type="DateTime" Precision="3" />
+          <Property Name="VendorId" Type="Int64" />
+          <Property Name="ReceivedBy" Type="Int64" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="POSModelStoreContainer" CdmEntityContainer="POSEntities">
+          <FunctionImportMapping FunctionName="POSModel.Store.StringSplit" FunctionImportName="StringSplit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="POSModel.StringSplit_Result">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetContactsPerPage" FunctionName="POSModel.Store.GetContactsPerPage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="POSModel.GetContactsPerPage_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetMenusByRoleId" FunctionName="POSModel.Store.GetMenusByRoleId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="POSModel.GetMenusByRoleId_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Parent_Menu_Id" ColumnName="Parent_Menu_Id" />
+                <ScalarProperty Name="selected" ColumnName="selected" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPermissionsByUserId" FunctionName="POSModel.Store.GetPermissionsByUserId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="POSModel.GetPermissionsByUserId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Permission" ColumnName="Permission" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPermissionsByUserId_v1" FunctionName="POSModel.Store.GetPermissionsByUserId_v1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="POSModel.GetPermissionsByUserId_v1_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Permission" ColumnName="Permission" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUserRoleByUserId" FunctionName="POSModel.Store.GetUserRoleByUserId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="POSModel.GetUserRoleByUserId_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SaveRolePermissions" FunctionName="POSModel.Store.SaveRolePermissions" />
+          <FunctionImportMapping FunctionImportName="GetData" FunctionName="POSModel.Store.GetData" />
+          <EntitySetMapping Name="ActivityLogs">
+            <EntityTypeMapping TypeName="POSModel.ActivityLog">
+              <MappingFragment StoreEntitySet="ActivityLog">
+                <ScalarProperty Name="ipAddress" ColumnName="ipAddress" />
+                <ScalarProperty Name="searchCriteria" ColumnName="searchCriteria" />
+                <ScalarProperty Name="activityType" ColumnName="activityType" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Logger" ColumnName="Logger" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Thread" ColumnName="Thread" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="POSModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="LevelId" ColumnName="LevelId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="POSModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="POSModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="POSModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="POSModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryTypeId" ColumnName="CategoryTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryTypes">
+            <EntityTypeMapping TypeName="POSModel.CategoryType">
+              <MappingFragment StoreEntitySet="CategoryType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="POSModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="IsActive_YN" ColumnName="IsActive_YN" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="POSModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="POSModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="IsActive_YN" ColumnName="IsActive_YN" />
+                <ScalarProperty Name="PhoneCode" ColumnName="PhoneCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ISO" ColumnName="ISO" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="POSModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deals">
+            <EntityTypeMapping TypeName="POSModel.Deal">
+              <MappingFragment StoreEntitySet="Deal">
+                <ScalarProperty Name="ItemId_Parent" ColumnName="ItemId_Parent" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiscountTypes">
+            <EntityTypeMapping TypeName="POSModel.DiscountType">
+              <MappingFragment StoreEntitySet="DiscountType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryItems">
+            <EntityTypeMapping TypeName="POSModel.InventoryItem">
+              <MappingFragment StoreEntitySet="InventoryItem">
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="PackageSellingPrice" ColumnName="PackageSellingPrice" />
+                <ScalarProperty Name="PackagePuchasePrice" ColumnName="PackagePuchasePrice" />
+                <ScalarProperty Name="UpdateRecipeBalance" ColumnName="UpdateRecipeBalance" />
+                <ScalarProperty Name="TotalPackages" ColumnName="TotalPackages" />
+                <ScalarProperty Name="ReplenishLevel" ColumnName="ReplenishLevel" />
+                <ScalarProperty Name="ReOrderLevel" ColumnName="ReOrderLevel" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="ReciptUnitPerPackage" ColumnName="ReciptUnitPerPackage" />
+                <ScalarProperty Name="RecipeUnit" ColumnName="RecipeUnit" />
+                <ScalarProperty Name="PackagingUnit" ColumnName="PackagingUnit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryLocations">
+            <EntityTypeMapping TypeName="POSModel.InventoryLocation">
+              <MappingFragment StoreEntitySet="InventoryLocation">
+                <ScalarProperty Name="ShelfLocation" ColumnName="ShelfLocation" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvIssueDetails">
+            <EntityTypeMapping TypeName="POSModel.InvIssueDetail">
+              <MappingFragment StoreEntitySet="InvIssueDetail">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="InventoryItemId" ColumnName="InventoryItemId" />
+                <ScalarProperty Name="InvIssueId" ColumnName="InvIssueId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="POSModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsSentToPRA" ColumnName="IsSentToPRA" />
+                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="NetTotal" ColumnName="NetTotal" />
+                <ScalarProperty Name="GST" ColumnName="GST" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvReceiptDetails">
+            <EntityTypeMapping TypeName="POSModel.InvReceiptDetail">
+              <MappingFragment StoreEntitySet="InvReceiptDetail">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="InventoryItemId" ColumnName="InventoryItemId" />
+                <ScalarProperty Name="InvReceiptId" ColumnName="InvReceiptId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvReturns">
+            <EntityTypeMapping TypeName="POSModel.InvReturn">
+              <MappingFragment StoreEntitySet="InvReturn">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReturnTo" ColumnName="ReturnTo" />
+                <ScalarProperty Name="ReturnBy" ColumnName="ReturnBy" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="ReturnNo" ColumnName="ReturnNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvReturnDetails">
+            <EntityTypeMapping TypeName="POSModel.InvReturnDetail">
+              <MappingFragment StoreEntitySet="InvReturnDetail">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="InventoryItemId" ColumnName="InventoryItemId" />
+                <ScalarProperty Name="InvReturnId" ColumnName="InvReturnId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="POSModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="IsFavoriteItem_YN" ColumnName="IsFavoriteItem_YN" />
+                <ScalarProperty Name="IsDealItem_YN" ColumnName="IsDealItem_YN" />
+                <ScalarProperty Name="ValidToDate" ColumnName="ValidToDate" />
+                <ScalarProperty Name="ValidFromDate" ColumnName="ValidFromDate" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="DiscountType" ColumnName="DiscountType" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="POSModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="POSModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="Parent_Menu_Id" ColumnName="Parent_Menu_Id" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuAccesses">
+            <EntityTypeMapping TypeName="POSModel.MenuAccess">
+              <MappingFragment StoreEntitySet="MenuAccess">
+                <ScalarProperty Name="HasAccess_YN" ColumnName="HasAccess_YN" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="POSModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+                <ScalarProperty Name="Pax" ColumnName="Pax" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="NetTotal" ColumnName="NetTotal" />
+                <ScalarProperty Name="GST" ColumnName="GST" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="WaiterId" ColumnName="WaiterId" />
+                <ScalarProperty Name="TableNumber" ColumnName="TableNumber" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ExpectedServingTime" ColumnName="ExpectedServingTime" />
+                <ScalarProperty Name="OrderDateTime" ColumnName="OrderDateTime" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="POSModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="LineTotal" ColumnName="LineTotal" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="POSModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="Province1" ColumnName="Province" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipes">
+            <EntityTypeMapping TypeName="POSModel.Recipe">
+              <MappingFragment StoreEntitySet="Recipe">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="InventoryItemId" ColumnName="InventoryItemId" />
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCWTimers">
+            <EntityTypeMapping TypeName="POSModel.SCWTimer">
+              <MappingFragment StoreEntitySet="SCWTimer">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsInvoiced" ColumnName="IsInvoiced" />
+                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="NetTotal" ColumnName="NetTotal" />
+                <ScalarProperty Name="GST" ColumnName="GST" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="POSModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="IsActive_YN" ColumnName="IsActive_YN" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="POSModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="POSModel.Unit">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="Dimension" ColumnName="Dimension" />
+                <ScalarProperty Name="Factor" ColumnName="Factor" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLevels">
+            <EntityTypeMapping TypeName="POSModel.UserLevel">
+              <MappingFragment StoreEntitySet="UserLevel">
+                <ScalarProperty Name="IsActive_YN" ColumnName="IsActive_YN" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+                <ScalarProperty Name="LevelId" ColumnName="LevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendors">
+            <EntityTypeMapping TypeName="POSModel.Vendor">
+              <MappingFragment StoreEntitySet="Vendor">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Waiters">
+            <EntityTypeMapping TypeName="POSModel.Waiter">
+              <MappingFragment StoreEntitySet="Waiter">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configurations">
+            <EntityTypeMapping TypeName="POSModel.Configuration">
+              <MappingFragment StoreEntitySet="Configuration">
+                <ScalarProperty Name="DataSync" ColumnName="DataSync" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PNTN" ColumnName="PNTN" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="RestrauarntId" ColumnName="RestrauarntId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FBR_Table">
+            <EntityTypeMapping TypeName="POSModel.FBR_Table">
+              <MappingFragment StoreEntitySet="FBR_Table">
+                <ScalarProperty Name="Entry_Date" ColumnName="Entry_Date" />
+                <ScalarProperty Name="Transmitted" ColumnName="Transmitted" />
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Contacts">
+            <EntityTypeMapping TypeName="POSModel.vw_Contacts">
+              <MappingFragment StoreEntitySet="vw_Contacts">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Items">
+            <EntityTypeMapping TypeName="POSModel.vw_Items">
+              <MappingFragment StoreEntitySet="vw_Items">
+                <ScalarProperty Name="IsDealItem_YN" ColumnName="IsDealItem_YN" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="POSModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="InvIssues">
+            <EntityTypeMapping TypeName="POSModel.InvIssue">
+              <MappingFragment StoreEntitySet="InvIssue">
+                <ScalarProperty Name="IssuePlace" ColumnName="IssuePlace" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IssueBy" ColumnName="IssueBy" />
+                <ScalarProperty Name="IssueTo" ColumnName="IssueTo" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="IssueNo" ColumnName="IssueNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvReceipts">
+            <EntityTypeMapping TypeName="POSModel.InvReceipt">
+              <MappingFragment StoreEntitySet="InvReceipt">
+                <ScalarProperty Name="ReceivedPlace" ColumnName="ReceivedPlace" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

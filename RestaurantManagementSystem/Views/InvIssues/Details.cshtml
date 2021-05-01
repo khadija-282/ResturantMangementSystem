@@ -1,0 +1,98 @@
+﻿@model RestaurantManagementSystem.ViewModels.InvIssueDto
+@using System.Web.Script.Serialization;
+@{
+    ViewBag.Title = "Details";
+}
+@{ string data = new JavaScriptSerializer().Serialize(Model);}
+@section Scripts{
+
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+    <script src="~/Scripts/InvIssueViewModel.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function () {
+             $('.datetimepicker').datepicker();
+        });
+        var invIssueDto = new InvIssueDto(@Html.Raw(data));
+        ko.applyBindings(invIssueDto);
+        console.log(invIssueDto);
+
+    </script>
+}
+<h2>Details</h2>
+<div class="col-md-12">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h2 class="box-title"><b>Inventory Returns</b><br /> </h2>
+            <hr />
+            <div class="box-tools pull-right">
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info" })
+            </div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Issue #</label>
+
+                        <div class="col-md-10">
+                            <span data-bind="text: IssueNo"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Issue Date</label>
+                        <div class="col-md-10">
+                            <span data-bind="text: IssueDate"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Issue By</label>
+                        <div class="col-md-10">
+                            <select disabled class="form-control" data-bind="options:listUser, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Email; },
+                                    value: IssueBy,valueUpdate: 'change'"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Issue To</label>
+                        <div class="col-md-10">
+                            <select disabled class="form-control" data-bind="options:listUser, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Email; },
+                                    value: IssueTo,valueUpdate: 'change'"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Issue Place</label>
+                        <div class="col-md-10">
+                            <select disabled class="form-control" data-bind="options:IssuePlaceList, optionsCaption: 'Select',
+                                    optionsValue: function (item) { return item.Id; },
+                                    optionsText: function (item) { return item.Name; },
+                                    value: IssuePlaceId,valueUpdate: 'change'"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Description</label>
+                        <div class="col-md-10">
+                            <span data-bind="text: Description"></span>
+                        </div>
+                    </div>
+                    @Html.Partial("_listIssueDetails")
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

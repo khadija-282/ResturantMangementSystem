@@ -1,0 +1,119 @@
+﻿@model RestaurantManagementSystem.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">@ViewBag.Title</h3>
+
+    </div>
+
+    <div class="box-body">
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Create a new account.</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("User Level", new { @class = "col-md-2 control-label" })
+                <div class="col-md-6 ">
+                    @*@Html.DropDownList("LevelId", null, htmlAttributes: new { @class = "form-control select", @onchange = "this.form.submit();" })*@
+                    @if (ViewBag.LevelId != null)
+                    {
+                        @Html.DropDownList("Level", new SelectList(ViewBag.LevelId, "LevelId", "LevelName"))
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-md-6 ">
+
+                    Roles
+                 
+
+                    <div id="role" class="col-md-6 table-bordered">
+                       
+                     
+                        @*@Html.CheckBoxListFor(model => model.UserRoles, model => model.UserRoles, x => x.Id, x => x.Name, model => model.UserRoles)*@
+                      
+
+                    </div>
+                   
+                </div>
+            </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-default" value="Register" />
+                    </div>
+                </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+@*// model.levelId = $("#Level").val();
+    var myModel = JSON.parse('@Html.Raw(Json.Encode(Model))');
+    myModel.LevelId = $("#Level").val();
+    //$("#role").load('@Url.Action("GetRoles","Account")' + '?model=' + myModel)
+    $("#role").load('@Url.Action("GetRoles","Account", Model)' + '?model=' + myModel)*@
+<script>
+    $(document).ready(function () {
+        $("#role").prop("disabled", true);
+        $("#Level").change(function () {
+            if ($("#Level").val() != "Please select") {
+               
+               
+                var options = {};
+                options.url = "/Account/GetRoles";
+                options.type = "POST";
+                options.data = JSON.stringify({ levelId: $("#Level").val() });
+                //options.data = JSON.stringify({ model: myModel });
+                options.dataType = "json";
+                options.contentType = "application/json";
+                options.success = function (roles) {
+
+                    $("#role").empty();
+                    //$("#role").append(" <select id='UserRoles' name='UserRoles'>")
+                    for (var i = 0; i < roles.length; i++) {
+                        //alert(roles[i].Value);
+                        //alert(roles[i].Text);
+                        alert('<input type="checkbox" id="UserRoles' + i + '" Name="UserSelectedRoles" value="' + roles[i].Value + '"/>' + roles[i].Text + ' <br>');
+                        $("#role").append('<input type="checkbox" id="UserRoles' + i + '" name="UserSelectedRoles" value="' + roles[i].Text + '"/>' + roles[i].Text + ' <br>');
+                    }
+                    $("#role").prop("disabled", false);
+                };
+                options.error = function () { alert("Error retrieving roles!"); };
+                $.ajax(options);
+            }
+            else {
+                $("#role").empty();
+                $("#role").prop("disabled", true);
+            }
+        });
+    });
+</script>
+}

@@ -1,0 +1,162 @@
+﻿@model RestaurantManagementSystem.Models.InventoryItem
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>InventoryItem</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Code)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Code)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Barcode)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Barcode)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PackagingUnit)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PackagingUnit)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.RecipeUnit)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RecipeUnit)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ReciptUnitPerPackage)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ReciptUnitPerPackage)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SortOrder)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SortOrder)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ReOrderLevel)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ReOrderLevel)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ReplenishLevel)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ReplenishLevel)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalPackages)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TotalPackages)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UpdateRecipeBalance)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UpdateRecipeBalance)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PackagePuchasePrice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PackagePuchasePrice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PackageSellingPrice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PackageSellingPrice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Group)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Group)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LocationId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LocationId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.VendorId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.VendorId)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

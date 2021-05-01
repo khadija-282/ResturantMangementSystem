@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="48669b0c07854b599b20acb24002da4b" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="POSModel.ActivityLog" Width="1.5" PointX="0.75" PointY="2.75" />
+        <EntityTypeShape EntityType="POSModel.AspNetRole" Width="1.5" PointX="3" PointY="11" />
+        <EntityTypeShape EntityType="POSModel.AspNetUserClaim" Width="1.5" PointX="7.5" PointY="21.25" />
+        <EntityTypeShape EntityType="POSModel.AspNetUserLogin" Width="1.5" PointX="7.5" PointY="9.75" />
+        <EntityTypeShape EntityType="POSModel.AspNetUser" Width="1.5" PointX="5.25" PointY="10" />
+        <EntityTypeShape EntityType="POSModel.Category" Width="1.5" PointX="8.25" PointY="3.125" />
+        <EntityTypeShape EntityType="POSModel.CategoryType" Width="1.5" PointX="6" PointY="3.25" />
+        <EntityTypeShape EntityType="POSModel.City" Width="1.5" PointX="17" PointY="9.375" />
+        <EntityTypeShape EntityType="POSModel.Contact" Width="1.5" PointX="19.25" PointY="7.25" />
+        <EntityTypeShape EntityType="POSModel.Country" Width="1.5" PointX="14.75" PointY="20.375" />
+        <EntityTypeShape EntityType="POSModel.Customer" Width="1.5" PointX="8.25" PointY="6.625" />
+        <EntityTypeShape EntityType="POSModel.Deal" Width="1.5" PointX="12.75" PointY="23.75" />
+        <EntityTypeShape EntityType="POSModel.DiscountType" Width="1.5" PointX="2.75" PointY="2.75" />
+        <EntityTypeShape EntityType="POSModel.InventoryItem" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="POSModel.InventoryLocation" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="POSModel.InvIssueDetail" Width="1.5" PointX="2.75" PointY="14.75" />
+        <EntityTypeShape EntityType="POSModel.Invoice" Width="1.5" PointX="12.75" PointY="15.5" />
+        <EntityTypeShape EntityType="POSModel.InvReceiptDetail" Width="1.5" PointX="6.75" PointY="15.75" />
+        <EntityTypeShape EntityType="POSModel.InvReturn" Width="1.5" PointX="8.75" PointY="16.75" />
+        <EntityTypeShape EntityType="POSModel.InvReturnDetail" Width="1.5" PointX="14.75" PointY="12.75" />
+        <EntityTypeShape EntityType="POSModel.Item" Width="1.5" PointX="10.5" PointY="0.75" />
+        <EntityTypeShape EntityType="POSModel.Location" Width="1.5" PointX="14.75" PointY="6.75" />
+        <EntityTypeShape EntityType="POSModel.Menu" Width="1.5" PointX="12.75" PointY="3" />
+        <EntityTypeShape EntityType="POSModel.MenuAccess" Width="1.5" PointX="15" PointY="3.25" />
+        <EntityTypeShape EntityType="POSModel.Order" Width="1.5" PointX="10.5" PointY="8.75" />
+        <EntityTypeShape EntityType="POSModel.OrderDetail" Width="1.5" PointX="12.75" PointY="7.75" />
+        <EntityTypeShape EntityType="POSModel.Province" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="POSModel.Recipe" Width="1.5" PointX="14.75" PointY="15.75" />
+        <EntityTypeShape EntityType="POSModel.SCWTimer" Width="1.5" PointX="12.75" PointY="11" />
+        <EntityTypeShape EntityType="POSModel.State" Width="1.5" PointX="14.75" PointY="9.5" />
+        <EntityTypeShape EntityType="POSModel.Status" Width="1.5" PointX="8.25" PointY="12.5" />
+        <EntityTypeShape EntityType="POSModel.Unit" Width="1.5" PointX="2.75" PointY="17.75" />
+        <EntityTypeShape EntityType="POSModel.UserLevel" Width="1.5" PointX="0.75" PointY="11" />
+        <EntityTypeShape EntityType="POSModel.Vendor" Width="1.5" PointX="4.75" PointY="18.75" />
+        <EntityTypeShape EntityType="POSModel.Waiter" Width="1.5" PointX="16.75" PointY="14.75" />
+        <EntityTypeShape EntityType="POSModel.Configuration" Width="1.5" PointX="16.75" PointY="17.75" />
+        <EntityTypeShape EntityType="POSModel.FBR_Table" Width="1.5" PointX="17.75" PointY="2.75" />
+        <EntityTypeShape EntityType="POSModel.vw_Contacts" Width="1.5" PointX="9.75" PointY="19.75" />
+        <EntityTypeShape EntityType="POSModel.vw_Items" Width="1.5" PointX="0.75" PointY="20.75" />
+        <AssociationConnector Association="POSModel.FK_AspNetRoles_UserLevel" />
+        <AssociationConnector Association="POSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="POSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="POSModel.FK_Order_AspNetUsers" />
+        <AssociationConnector Association="POSModel.FK_Category_CategoryType" />
+        <AssociationConnector Association="POSModel.FK_Item_Category" />
+        <AssociationConnector Association="POSModel.FK_City_Country" />
+        <AssociationConnector Association="POSModel.FK_City_State" />
+        <AssociationConnector Association="POSModel.FK_Contact_City" />
+        <AssociationConnector Association="POSModel.FK_Contact_Country" />
+        <AssociationConnector Association="POSModel.FK_Contact_State" />
+        <AssociationConnector Association="POSModel.FK_Order_Customer" />
+        <AssociationConnector Association="POSModel.FK_Deal_Item" />
+        <AssociationConnector Association="POSModel.FK_Deal_Item1" />
+        <AssociationConnector Association="POSModel.FK_Invoice_Order" />
+        <AssociationConnector Association="POSModel.FK_OrderDetail_Item" />
+        <AssociationConnector Association="POSModel.FK_Menu_Menu" />
+        <AssociationConnector Association="POSModel.FK_MenuAccess_Menu" />
+        <AssociationConnector Association="POSModel.FK_Order_Status" />
+        <AssociationConnector Association="POSModel.FK_OrderDetail_Order" />
+        <AssociationConnector Association="POSModel.FK_SCWTimer_Order" />
+        <AssociationConnector Association="POSModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="POSModel.InvIssue" Width="1.5" PointX="19.375" PointY="15.75" />
+        <EntityTypeShape EntityType="POSModel.InvReceipt" Width="1.5" PointX="19.375" PointY="19.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
